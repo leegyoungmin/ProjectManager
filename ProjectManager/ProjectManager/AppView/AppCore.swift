@@ -15,7 +15,7 @@ struct AppState: Equatable {
 
 enum AppAction {
   // User Action
-
+  
   // Inner Action
   case _movingTo(targetStatus: ProjectState, newItem: Project)
   
@@ -42,21 +42,29 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     .pullback(
       state: \.todoListState,
       action: /AppAction.todoListAction,
-      environment: { _ in BoardListEnvironment() }
+      environment: { _ in BoardListEnvironment(
+        coreDataClient: .live,
+        mainQueue: .main
+      ) }
     ),
   
   boardListReducer
     .pullback(
       state: \.doingListState,
       action: /AppAction.doingListAction,
-      environment: { _ in BoardListEnvironment() }
+      environment: { _ in BoardListEnvironment(
+        coreDataClient: .live,
+        mainQueue: .main
+      ) }
     ),
   
   boardListReducer
     .pullback(
       state: \.doneListState,
       action: /AppAction.doneListAction,
-      environment: { _ in BoardListEnvironment() }
+      environment: { _ in BoardListEnvironment(
+        coreDataClient: .live, mainQueue: .main
+      ) }
     ),
   
   Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
@@ -73,12 +81,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       var newItem = project
       newItem.state = .doing
       return Effect(value: ._movingTo(targetStatus: .doing, newItem: newItem))
-
+      
     case .todoListAction(.movingToDone(let project)), .doingListAction(.movingToDone(let project)):
       var newItem = project
       newItem.state = .done
       return Effect(value: ._movingTo(targetStatus: .done, newItem: newItem))
-
+      
     case .doingListAction(.movingToTodo(let project)), .doneListAction(.movingToTodo(let project)):
       var newItem = project
       newItem.state = .todo

@@ -6,6 +6,7 @@
 
 import Foundation
 import ComposableArchitecture
+import SwiftUI
 
 struct BoardListState: Equatable {
   var projects: [Project] = []
@@ -24,16 +25,19 @@ enum BoardListAction {
   case movingToDone(Project)
   
   // Inner Action
+  case _onAppear
   case _dismissItem
   case _createDetailState(Project)
   case _deleteProject(Project)
+  case _fetchProjectsResponse(Result<[Project], CoreDataClient.Failure>)
   
   // Child Action
   case detailAction(DetailAction)
 }
 
 struct BoardListEnvironment {
-  init() { }
+  var coreDataClient: CoreDataClient
+  var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
 let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnvironment>.combine([
@@ -54,6 +58,18 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       
     case .movingToTodo(let project), .movingToDoing(let project), .movingToDone(let project):
       return Effect(value: ._deleteProject(project))
+      
+    case ._onAppear:
+      return environment.coreDataClient
+        .fetchProjects()
+        .catchToEffect(BoardListAction._fetchProjectsResponse)
+      
+    case let ._fetchProjectsResponse(.success(projects)):
+      state.projects = projects
+      return .none
+      
+    case ._fetchProjectsResponse(.failure):
+      return .none
       
     case ._dismissItem:
       state.selectedProject = nil
@@ -94,6 +110,7 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       
     case .detailAction:
       return .none
+
     }
   }
 ])

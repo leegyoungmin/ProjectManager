@@ -31,6 +31,7 @@
 		18914D5629827E33005D7B13 /* Assignment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5429827E33005D7B13 /* Assignment+CoreDataProperties.swift */; };
 		18914D5929827E45005D7B13 /* AssignmentLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5729827E45005D7B13 /* AssignmentLog+CoreDataClass.swift */; };
 		18914D5A29827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5829827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift */; };
+		18914D5C2982AD4A005D7B13 /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */; };
 		18AB3C0C29796F0B00854929 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 18AB3C0B29796F0B00854929 /* ComposableArchitecture */; };
 		18AB3C2229799B6500854929 /* SheetStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2129799B6500854929 /* SheetStoreTest.swift */; };
 		18AB3C2B2979A87200854929 /* DetailStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2A2979A87200854929 /* DetailStoreTest.swift */; };
@@ -71,6 +72,7 @@
 		18914D5429827E33005D7B13 /* Assignment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18914D5729827E45005D7B13 /* AssignmentLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssignmentLog+CoreDataClass.swift"; sourceTree = "<group>"; };
 		18914D5829827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssignmentLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
 		18AB3C1F29799B6500854929 /* StoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AB3C2129799B6500854929 /* SheetStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetStoreTest.swift; sourceTree = "<group>"; };
 		18AB3C2A2979A87200854929 /* DetailStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreTest.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				18914D5329827E33005D7B13 /* Assignment+CoreDataClass.swift */,
 				18914D5429827E33005D7B13 /* Assignment+CoreDataProperties.swift */,
 				18914D4029827B0F005D7B13 /* PersistenceController.swift */,
+				18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				18914D5A29827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift in Sources */,
 				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
 				187A145D2979B7C300311B7A /* Date.swift in Sources */,
+				18914D5C2982AD4A005D7B13 /* CoreDataClient.swift in Sources */,
 				18914D4229827C8A005D7B13 /* Project.xcdatamodeld in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,

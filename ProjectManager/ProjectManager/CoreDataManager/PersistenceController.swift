@@ -20,6 +20,10 @@ struct PersistenceController {
     }
   }
   
+  var context: NSManagedObjectContext {
+    return container.viewContext
+  }
+  
   func saveContext() {
     let context = container.viewContext
     
