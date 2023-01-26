@@ -15,12 +15,12 @@ struct AppState: Equatable {
 
 enum AppAction {
   // User Action
-  case sheetAction(SheetAction)
 
   // Inner Action
   case _movingTo(targetStatus: ProjectState, newItem: Project)
   
   // Child Action
+  case sheetAction(SheetAction)
   case todoListAction(BoardListAction)
   case doingListAction(BoardListAction)
   case doneListAction(BoardListAction)
