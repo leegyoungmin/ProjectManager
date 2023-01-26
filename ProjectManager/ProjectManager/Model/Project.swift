@@ -6,6 +6,7 @@
 
 import Foundation
 import ComposableArchitecture
+import SwiftUI
 
 struct Project: Codable, Identifiable, Equatable {
   var id = UUID()
@@ -13,6 +14,12 @@ struct Project: Codable, Identifiable, Equatable {
   let date: Date
   let description: String
   var state: ProjectState = .todo
+}
+
+extension Project {
+  var dateColor: Color {
+    return self.date.onlyDate() <= Date().onlyDate() ? .red : .black
+  }
 }
 
 enum ProjectState: Int, Codable {

@@ -54,9 +54,7 @@ struct BoardListCellView: View {
         Text(project.date.onlyDate())
           .lineLimit(1)
           .font(.footnote)
-          .foregroundColor(
-            project.date.onlyDate() <= Date().onlyDate() ? .red : .black
-          )
+          .foregroundColor(project.dateColor)
       }
       
       Spacer()
