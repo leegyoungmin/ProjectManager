@@ -9,12 +9,10 @@ import ComposableArchitecture
 
 struct BoardListState: Equatable {
   var projects: [Project] = []
+  var targetItem: Project?
   var status: ProjectState
   
   var selectedProject: DetailState?
-  
-  var targetItem: Project?
-  
 }
 
 enum BoardListAction {
