@@ -30,6 +30,12 @@ struct BoardListView: View {
           BoardListCellView(project: project)
             .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
             .listRowSeparator(.hidden)
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+              Button("DELETE") {
+                viewStore.send(.tapDelete(project))
+              }
+              .tint(.red)
+            }
             .onTapGesture {
               viewStore.send(.tapDetailShow(project))
             }
@@ -43,7 +49,7 @@ struct BoardListView: View {
                 Button("DONE") {
                   viewStore.send(.movingToDone(project))
                 }
-
+                
               case .doing:
                 Button("TODO") {
                   viewStore.send(.movingToTodo(project))

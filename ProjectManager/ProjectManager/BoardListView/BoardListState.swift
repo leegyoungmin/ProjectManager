@@ -19,7 +19,7 @@ struct BoardListState: Equatable {
 
 enum BoardListAction {
   // User Action
-  case didDelete(IndexSet)
+  case tapDelete(Project)
   case tapDetailShow(Project)
   case movingToTodo(Project)
   case movingToDoing(Project)
@@ -48,9 +48,8 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
     ),
   Reducer<BoardListState, BoardListAction, BoardListEnvironment> { state, action, environment in
     switch action {
-    case let .didDelete(indexSet):
-      indexSet.forEach { state.projects.remove(at: $0) }
-      return .none
+    case let .tapDelete(project):
+      return Effect(value: ._deleteProject(project))
       
     case let .tapDetailShow(project):
       return Effect(value: ._createDetailState(project))
