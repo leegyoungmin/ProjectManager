@@ -7,7 +7,6 @@
 import Foundation
 import ComposableArchitecture
 import SwiftUI
-import CoreData
 
 struct Project: Codable, Identifiable, Equatable {
   var id = UUID()
