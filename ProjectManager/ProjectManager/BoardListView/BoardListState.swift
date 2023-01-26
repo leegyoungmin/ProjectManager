@@ -24,8 +24,8 @@ enum BoardListAction {
   case movingToDone(Project)
   
   // Inner Action
-  case _createDetailState(Project)
   case _dismissItem
+  case _createDetailState(Project)
   case _deleteProject(Project)
   
   // Child Action
@@ -52,6 +52,13 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
     case let .tapDetailShow(project):
       return Effect(value: ._createDetailState(project))
       
+    case .movingToTodo(let project), .movingToDoing(let project), .movingToDone(let project):
+      return Effect(value: ._deleteProject(project))
+      
+    case ._dismissItem:
+      state.selectedProject = nil
+      return .none
+      
     case let ._createDetailState(project):
       let existingState = DetailState(
         id: project.id,
@@ -62,10 +69,6 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
         editMode: true
       )
       state.selectedProject = existingState
-      return .none
-      
-    case ._dismissItem:
-      state.selectedProject = nil
       return .none
       
     case .detailAction(.didDoneTap):
@@ -83,9 +86,7 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       state.projects[index] = newItem
       return Effect(value: ._dismissItem)
       
-    case .movingToTodo(let project), .movingToDoing(let project), .movingToDone(let project):
-      return Effect(value: ._deleteProject(project))
-      
+    
     case let ._deleteProject(project):
       guard let firstIndex = state.projects.firstIndex(where: { $0.id == project.id }) else { return .none }
       state.projects.remove(at: firstIndex)

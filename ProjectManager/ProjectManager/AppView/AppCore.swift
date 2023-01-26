@@ -84,6 +84,15 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       newItem.state = .todo
       return Effect(value: ._movingTo(targetStatus: .todo, newItem: newItem))
       
+    case .todoListAction:
+      return .none
+      
+    case .doingListAction:
+      return .none
+      
+    case .doneListAction:
+      return .none
+      
     case let ._movingTo(targetStatus, newItem):
       switch targetStatus {
       case .todo:
@@ -98,15 +107,6 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
         state.doneListState.projects.append(newItem)
         return .none
       }
-      
-    case .todoListAction:
-      return .none
-      
-    case .doingListAction:
-      return .none
-      
-    case .doneListAction:
-      return .none
     }
   }
 ])
