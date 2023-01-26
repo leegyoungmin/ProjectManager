@@ -13,8 +13,8 @@ import SwiftUI
 @testable import ProjectManager
 
 @MainActor
-final class NavigateStoreTest: XCTestCase {
-  func testNavigate() async {
+final class SheetStoreTest: XCTestCase {
+  func test_SheetStore가_잘작동하는지() async {
     let store = TestStore(
       initialState: SheetState(),
       reducer: sheetReducer,
