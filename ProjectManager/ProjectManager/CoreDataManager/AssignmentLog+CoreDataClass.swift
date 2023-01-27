@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(AssignmentLog)
+
 public class AssignmentLog: NSManagedObject {
 
 }

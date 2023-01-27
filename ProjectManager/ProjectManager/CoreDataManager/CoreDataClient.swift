@@ -12,6 +12,7 @@ typealias Projects = [Project]
 
 struct CoreDataClient {
   var fetchProjects: () -> Effect<Projects, Failure>
+  var saveProject: (Project) -> Effect<Bool, Failure>
   
   struct Failure: Error, Equatable { }
 }
@@ -21,10 +22,19 @@ extension CoreDataClient {
     fetchProjects: {
       Effect.task {
         let fetchRequest: NSFetchRequest<Assignment> = Assignment.fetchRequest()
-        let projects = try PersistenceController.shared.context.fetch(fetchRequest)
+        guard let projects = try? PersistenceController.shared.context.fetch(fetchRequest) else {
+          return []
+        }
         return projects.compactMap { $0.convertProject() }
       }
-      .mapError { _ in Failure() }
+      .mapError { _ in CoreDataClient.Failure() }
+      .eraseToEffect()
+    }, saveProject: { project in
+      Effect.task {
+        let result = PersistenceController.shared.saveAssignment(project: project)
+        return result
+      }
+      .mapError { _ in CoreDataClient.Failure() }
       .eraseToEffect()
     }
   )

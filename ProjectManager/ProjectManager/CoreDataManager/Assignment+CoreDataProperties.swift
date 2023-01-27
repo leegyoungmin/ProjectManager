@@ -20,11 +20,23 @@ extension Assignment {
     @NSManaged public var deadLineDate: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
+    @NSManaged public var state: Int32
     @NSManaged public var log: AssignmentLog?
 
 }
 
 extension Assignment : Identifiable {
+  var projectStatus: ProjectState {
+    get {
+      return ProjectState(rawValue: Int(state)) ?? .todo
+    }
+    
+    set {
+      state = Int32(newValue.rawValue)
+    }
+  }
+  
+  
   func convertProject() -> Project? {
     guard let title = self.title,
           let body = self.body,
@@ -33,6 +45,6 @@ extension Assignment : Identifiable {
       return nil
     }
     
-    return Project(id: id, title: title, date: deadLineDate, description: body, state: .todo)
+    return Project(id: id, title: title, date: deadLineDate, description: body, state: self.projectStatus)
   }
 }
