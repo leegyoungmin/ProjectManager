@@ -65,7 +65,7 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
         .catchToEffect(BoardListAction._fetchProjectsResponse)
       
     case let ._fetchProjectsResponse(.success(projects)):
-      state.projects = projects
+      state.projects = projects.filter { $0.state == state.status }
       return .none
       
     case ._fetchProjectsResponse(.failure):

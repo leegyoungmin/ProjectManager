@@ -86,6 +86,9 @@ struct BoardListView: View {
             }
         }
         .listStyle(.plain)
+        .onAppear {
+          viewStore.send(._onAppear)
+        }
       }
     }
   }
