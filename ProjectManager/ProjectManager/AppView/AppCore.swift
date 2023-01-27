@@ -7,24 +7,19 @@
 import Foundation
 import ComposableArchitecture
 
-struct AppState: Equatable {
+struct AppState {
   var sheetState = SheetState()
-  var todoListState = BoardListState(status: .todo)
-  var doingListState = BoardListState(status: .doing)
-  var doneListState = BoardListState(status: .done)
+  var boardState = BoardState()
 }
 
 enum AppAction {
   // User Action
   
   // Inner Action
-  case _movingTo(targetStatus: ProjectState, newItem: Project)
   
   // Child Action
   case sheetAction(SheetAction)
-  case todoListAction(BoardListAction)
-  case doingListAction(BoardListAction)
-  case doneListAction(BoardListAction)
+  case boardAction(BoardAction)
 }
 
 struct AppEnvironment {
@@ -42,71 +37,19 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
         mainQueue: .main
       ) }
     ),
-  
-  boardListReducer
+  boardReducer
     .pullback(
-      state: \.todoListState,
-      action: /AppAction.todoListAction,
-      environment: { _ in BoardListEnvironment(
-        coreDataClient: .live,
-        mainQueue: .main
-      ) }
-    ),
-  
-  boardListReducer
-    .pullback(
-      state: \.doingListState,
-      action: /AppAction.doingListAction,
-      environment: { _ in BoardListEnvironment(
-        coreDataClient: .live,
-        mainQueue: .main
-      ) }
-    ),
-  
-  boardListReducer
-    .pullback(
-      state: \.doneListState,
-      action: /AppAction.doneListAction,
-      environment: { _ in BoardListEnvironment(
-        coreDataClient: .live, mainQueue: .main
-      ) }
+      state: \.boardState,
+      action: /AppAction.boardAction,
+      environment: { _ in BoardEnvironment() }
     ),
   
   Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
     switch action {
-    case .sheetAction(.detailAction(.didDoneTap)):
-      guard let project = state.sheetState.createdProject else { return .none }
-      state.todoListState.projects.append(project)
-      return .none
-      
     case .sheetAction:
       return .none
       
-    case .todoListAction(.movingToDoing(let project)), .doneListAction(.movingToDoing(let project)):
-      var newItem = project
-      newItem.state = .doing
-      return Effect(value: ._movingTo(targetStatus: .doing, newItem: newItem))
-      
-    case .todoListAction(.movingToDone(let project)), .doingListAction(.movingToDone(let project)):
-      var newItem = project
-      newItem.state = .done
-      return Effect(value: ._movingTo(targetStatus: .done, newItem: newItem))
-      
-    case .doingListAction(.movingToTodo(let project)), .doneListAction(.movingToTodo(let project)):
-      var newItem = project
-      newItem.state = .todo
-      return Effect(value: ._movingTo(targetStatus: .todo, newItem: newItem))
-      
-    case .todoListAction:
-      return .none
-      
-    case .doingListAction:
-      return .none
-      
-    case .doneListAction:
-      return .none
-      
-    case let ._movingTo(targetStatus, newItem):
+    case .boardAction:
       return .none
     }
   }

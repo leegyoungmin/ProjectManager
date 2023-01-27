@@ -11,36 +11,19 @@ struct ProjectManagerAppView: View {
   let store: Store<AppState, AppAction>
   
   var body: some View {
-    WithViewStore(store) { viewStore in
+    VStack {
       NavigationBarView(
         navigationStore: self.store.scope(
           state: \.sheetState,
           action: AppAction.sheetAction
         )
       )
-      
-      HStack(spacing: 0) {
-        BoardListView(
-          store: self.store.scope(
-            state: \.todoListState,
-            action: AppAction.todoListAction
-          )
+      BoardView(
+        store: self.store.scope(
+          state: \.boardState,
+          action: AppAction.boardAction
         )
-        
-        BoardListView(
-          store: self.store.scope(
-            state: \.doingListState,
-            action: AppAction.doingListAction
-          )
-        )
-        
-        BoardListView(
-          store: self.store.scope(
-            state: \.doneListState,
-            action: AppAction.doneListAction
-          )
-        )
-      }
+      )
     }
   }
 }
