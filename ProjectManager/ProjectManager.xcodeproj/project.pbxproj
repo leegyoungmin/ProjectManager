@@ -203,14 +203,22 @@
 		18914D3F29827B03005D7B13 /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
-				18914D6529838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift */,
-				18914D6629838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift */,
-				18914D6729838FC7005D7B13 /* Assignment+CoreDataClass.swift */,
-				18914D6829838FC7005D7B13 /* Assignment+CoreDataProperties.swift */,
+				18914D6D2983B0D7005D7B13 /* Models */,
 				18914D4029827B0F005D7B13 /* PersistenceController.swift */,
 				18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */,
 			);
 			path = CoreDataManager;
+			sourceTree = "<group>";
+		};
+		18914D6D2983B0D7005D7B13 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18914D6529838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift */,
+				18914D6629838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift */,
+				18914D6729838FC7005D7B13 /* Assignment+CoreDataClass.swift */,
+				18914D6829838FC7005D7B13 /* Assignment+CoreDataProperties.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		18AB3C2029799B6500854929 /* StoreTests */ = {

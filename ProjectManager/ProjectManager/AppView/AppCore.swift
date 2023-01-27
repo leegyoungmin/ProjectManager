@@ -4,6 +4,7 @@
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
+import Foundation
 import ComposableArchitecture
 
 struct AppState: Equatable {
@@ -27,7 +28,8 @@ enum AppAction {
 }
 
 struct AppEnvironment {
-  init() { }
+  var coreDataClient: CoreDataClient
+  var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
@@ -105,19 +107,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       return .none
       
     case let ._movingTo(targetStatus, newItem):
-      switch targetStatus {
-      case .todo:
-        state.todoListState.projects.append(newItem)
-        return .none
-        
-      case .doing:
-        state.doingListState.projects.append(newItem)
-        return .none
-        
-      case .done:
-        state.doneListState.projects.append(newItem)
-        return .none
-      }
+      return .none
     }
   }
 ])

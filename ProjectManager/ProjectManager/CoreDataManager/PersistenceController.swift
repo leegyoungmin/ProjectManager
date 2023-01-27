@@ -34,6 +34,23 @@ struct PersistenceController {
     return saveContext()    
   }
   
+  func updateAssignment(project: Project) -> Bool {
+    let request = Assignment.fetchRequest()
+    request.predicate = NSPredicate(format: "id = %@", project.id.uuidString)
+    
+    do {
+      let datas = try context.fetch(request)
+      
+      for data in datas {
+        data.state = Int32(project.state.rawValue)
+      }
+      
+      return saveContext()
+    } catch {
+      return false
+    }
+  }
+  
   func saveContext() -> Bool {
     let context = container.viewContext
     

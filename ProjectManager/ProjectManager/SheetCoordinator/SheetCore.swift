@@ -91,10 +91,6 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
       return environment.coreDataClient
         .saveProject(newItem)
         .catchToEffect(SheetAction._saveProjectResponse)
-//      return Effect.concatenate([
-//        Effect(value: ._setIsNotPresent),
-//        Effect(value: ._deleteDetailState)
-//      ])
       
     case ._saveProjectResponse(.success(true)):
       return Effect.concatenate([
