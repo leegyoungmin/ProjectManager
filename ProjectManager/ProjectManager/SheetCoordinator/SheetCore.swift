@@ -24,13 +24,15 @@ enum SheetAction {
   case _setIsNotPresent
   case _createDetailState(id: UUID, currentDate: Date, isEdit: Bool)
   case _deleteDetailState
+  case _saveProjectResponse(Result<Bool, CoreDataClient.Failure>)
   
   // Child Action
   case detailAction(DetailAction)
 }
 
 struct SheetEnvironment {
-  init() { }
+  var coreDataClient: CoreDataClient
+  var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
 let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
@@ -81,11 +83,32 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
     // Child Action
     case .detailAction(.didDoneTap):
       guard let detail = state.detailState else { return .none }
-      state.createdProject = Project(
+      let newItem = Project(
         title: detail.title,
         date: detail.deadLineDate,
         description: detail.description
       )
+      return environment.coreDataClient
+        .saveProject(newItem)
+        .catchToEffect(SheetAction._saveProjectResponse)
+//      return Effect.concatenate([
+//        Effect(value: ._setIsNotPresent),
+//        Effect(value: ._deleteDetailState)
+//      ])
+      
+    case ._saveProjectResponse(.success(true)):
+      return Effect.concatenate([
+        Effect(value: ._setIsNotPresent),
+        Effect(value: ._deleteDetailState)
+      ])
+      
+    case ._saveProjectResponse(.success(false)):
+      return Effect.concatenate([
+        Effect(value: ._setIsNotPresent),
+        Effect(value: ._deleteDetailState)
+      ])
+      
+    case ._saveProjectResponse(.failure):
       return Effect.concatenate([
         Effect(value: ._setIsNotPresent),
         Effect(value: ._deleteDetailState)

@@ -53,7 +53,7 @@ struct NavigationBarView_Previews: PreviewProvider {
   static let store = Store(
     initialState: SheetState(),
     reducer: sheetReducer,
-    environment: SheetEnvironment()
+    environment: SheetEnvironment(coreDataClient: .live, mainQueue: .main)
   )
   
   static var previews: some View {
