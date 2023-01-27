@@ -16,7 +16,7 @@
 		18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */; };
 		18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
 		18359ABD296C1F82000D6C73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
-		1838007329815B8C00396190 /* BoardListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838007229815B8C00396190 /* BoardListState.swift */; };
+		1838007329815B8C00396190 /* BoardListCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838007229815B8C00396190 /* BoardListCore.swift */; };
 		183800752981640100396190 /* BoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183800742981640100396190 /* BoardListView.swift */; };
 		1854F1232975738C0082FB88 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F1222975738C0082FB88 /* AppCore.swift */; };
 		1854F126297578150082FB88 /* SheetCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F125297578150082FB88 /* SheetCore.swift */; };
@@ -60,7 +60,7 @@
 		18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		18359AB9296C1F82000D6C73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1838007229815B8C00396190 /* BoardListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListState.swift; sourceTree = "<group>"; };
+		1838007229815B8C00396190 /* BoardListCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCore.swift; sourceTree = "<group>"; };
 		183800742981640100396190 /* BoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListView.swift; sourceTree = "<group>"; };
 		1854F1222975738C0082FB88 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		1854F125297578150082FB88 /* SheetCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCore.swift; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				1854F12F29757DFF0082FB88 /* BoardListComponents.swift */,
-				1838007229815B8C00396190 /* BoardListState.swift */,
+				1838007229815B8C00396190 /* BoardListCore.swift */,
 				183800742981640100396190 /* BoardListView.swift */,
 			);
 			path = BoardListView;
@@ -363,7 +363,7 @@
 				18914D6929838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */,
-				1838007329815B8C00396190 /* BoardListState.swift in Sources */,
+				1838007329815B8C00396190 /* BoardListCore.swift in Sources */,
 				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
 				18914D6B29838FC7005D7B13 /* Assignment+CoreDataClass.swift in Sources */,
 				187A145D2979B7C300311B7A /* Date.swift in Sources */,

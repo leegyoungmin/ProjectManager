@@ -8,25 +8,32 @@ import Foundation
 import CoreData
 import ComposableArchitecture
 
-typealias Projects = [Project]
+typealias Projects = [ProjectState: [Project]]
 
 struct CoreDataClient {
   var fetchProjects: () -> Effect<Projects, Failure>
   var saveProject: (Project) -> Effect<Bool, Failure>
-  var updateProject: (Project) -> Effect<Bool, Failure>
+  var updateProject: (Project) -> Effect<Projects, Failure>
   
   struct Failure: Error, Equatable { }
+}
+
+extension Sequence {
+  func toDictionary<Key: Hashable>(with selectKey: (Iterator.Element) -> Key) -> [Key: Iterator.Element] {
+    var dict: [Key: Iterator.Element] = [:]
+    
+    for element in self {
+      dict[selectKey(element)] = element
+    }
+    return dict
+  }
 }
 
 extension CoreDataClient {
   static let live = Self(
     fetchProjects: {
       Effect.task {
-        let fetchRequest: NSFetchRequest<Assignment> = Assignment.fetchRequest()
-        guard let projects = try? PersistenceController.shared.context.fetch(fetchRequest) else {
-          return []
-        }
-        return projects.compactMap { $0.convertProject() }
+        return PersistenceController.shared.fetchAll()
       }
       .mapError { _ in CoreDataClient.Failure() }
       .eraseToEffect()

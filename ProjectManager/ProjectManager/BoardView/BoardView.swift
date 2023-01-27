@@ -10,27 +10,32 @@ import SwiftUI
 struct BoardView: View {
   let store: Store<BoardState, BoardAction>
   var body: some View {
-    HStack {
-      BoardListView(
-        store: store.scope(
-          state: \.todoListState,
-          action: BoardAction.todoListAction
+    WithViewStore(self.store) { viewStore in
+      HStack {
+        BoardListView(
+          store: store.scope(
+            state: \.todoListState,
+            action: BoardAction.todoListAction
+          )
         )
-      )
-      
-      BoardListView(
-        store: store.scope(
-          state: \.doingListState,
-          action: BoardAction.doingListAction
+        
+        BoardListView(
+          store: store.scope(
+            state: \.doingListState,
+            action: BoardAction.doingListAction
+          )
         )
-      )
-      
-      BoardListView(
-        store: store.scope(
-          state: \.doneListState,
-          action: BoardAction.doneListAction
+        
+        BoardListView(
+          store: store.scope(
+            state: \.doneListState,
+            action: BoardAction.doneListAction
+          )
         )
-      )
+      }
+      .onAppear {
+        viewStore.send(._onAppear)
+      }
     }
   }
 }
@@ -39,7 +44,7 @@ struct BoardView_Previews: PreviewProvider {
   static let store = Store(
     initialState: BoardState(),
     reducer: boardReducer,
-    environment: BoardEnvironment()
+    environment: BoardEnvironment(coreDataClient: .live)
   )
   
   static var previews: some View {

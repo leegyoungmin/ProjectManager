@@ -7,7 +7,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct AppState {
+struct AppState: Equatable {
   var sheetState = SheetState()
   var boardState = BoardState()
 }
@@ -41,7 +41,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     .pullback(
       state: \.boardState,
       action: /AppAction.boardAction,
-      environment: { _ in BoardEnvironment() }
+      environment: { _ in BoardEnvironment(coreDataClient: .live) }
     ),
   
   Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in

@@ -37,12 +37,12 @@ extension Assignment : Identifiable {
   }
   
   
-  func convertProject() -> Project? {
+  func convertProject() -> Project {
     guard let title = self.title,
           let body = self.body,
           let id = self.id,
           let deadLineDate = self.deadLineDate else {
-      return nil
+      return Project(title: "", date: Date(), description: "")
     }
     
     return Project(id: id, title: title, date: deadLineDate, description: body, state: self.projectStatus)

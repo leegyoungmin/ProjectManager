@@ -22,7 +22,7 @@ extension Project {
   }
 }
 
-enum ProjectState: Int, Codable {
+enum ProjectState: Int, Codable, CaseIterable {
   case todo = 1
   case doing = 2
   case done = 3

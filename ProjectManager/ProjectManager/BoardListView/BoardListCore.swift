@@ -29,9 +29,6 @@ enum BoardListAction {
   case _dismissItem
   case _createDetailState(Project)
   case _deleteProject(Project)
-  case _updateProjectState(Project, ProjectState)
-  case _fetchProjectsResponse(Result<[Project], CoreDataClient.Failure>)
-  case _movingProjectResponse(Result<Bool, CoreDataClient.Failure>)
   
   // Child Action
   case detailAction(DetailAction)
@@ -58,34 +55,15 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
     case let .tapDetailShow(project):
       return Effect(value: ._createDetailState(project))
       
-    case .movingToTodo(let project):
-      return Effect(value: ._updateProjectState(project, .todo))
+    case let .movingToDoing(project), let .movingToDone(project), let .movingToTodo(project):
+      guard let index = state.projects.firstIndex(of: project) else {
+        return .none
+      }
       
-    case .movingToDoing(let project):
-      return Effect(value: ._updateProjectState(project, .doing))
-      
-    case .movingToDone(let project):
-        return Effect(value: ._updateProjectState(project, .done))
+      state.projects.remove(at: index)
+      return .none
       
     case ._onAppear:
-      return environment.coreDataClient
-        .fetchProjects()
-        .catchToEffect(BoardListAction._fetchProjectsResponse)
-      
-    case let ._updateProjectState(project, newState):
-      var newItem = project
-      newItem.state = newState
-      return environment.coreDataClient.updateProject(newItem)
-        .catchToEffect(BoardListAction._movingProjectResponse)
-      
-    case let ._fetchProjectsResponse(.success(projects)):
-      state.projects = projects.filter { $0.state == state.status }
-      return .none
-      
-    case ._fetchProjectsResponse(.failure):
-      return .none
-      
-    case ._movingProjectResponse:
       return .none
       
     case ._dismissItem:

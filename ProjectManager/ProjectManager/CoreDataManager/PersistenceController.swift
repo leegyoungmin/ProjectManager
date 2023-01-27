@@ -30,11 +30,22 @@ struct PersistenceController {
     newAssignment.setValue(project.title, forKey: "title")
     newAssignment.setValue(project.description, forKey: "body")
     newAssignment.setValue(project.date, forKey: "deadLineDate")
+    newAssignment.setValue(Int32(project.state.rawValue), forKey: "state")
     
     return saveContext()    
   }
   
-  func updateAssignment(project: Project) -> Bool {
+  func fetchAll() -> Projects {
+    guard let assignments = try? context.fetch(Assignment.fetchRequest()) else {
+      return [:]
+    }
+    let projects = assignments.map { $0.convertProject() }
+    
+    print(projects)
+    return Dictionary(grouping: projects) { $0.state }
+  }
+  
+  func updateAssignment(project: Project) -> Projects {
     let request = Assignment.fetchRequest()
     request.predicate = NSPredicate(format: "id = %@", project.id.uuidString)
     
@@ -44,13 +55,15 @@ struct PersistenceController {
       for data in datas {
         data.state = Int32(project.state.rawValue)
       }
+      saveContext()
       
-      return saveContext()
+      return fetchAll()
     } catch {
-      return false
+      return [:]
     }
   }
   
+  @discardableResult
   func saveContext() -> Bool {
     let context = container.viewContext
     
