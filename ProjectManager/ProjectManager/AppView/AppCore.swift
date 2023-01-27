@@ -35,7 +35,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     .pullback(
       state: \.sheetState,
       action: /AppAction.sheetAction,
-      environment: { _ in SheetEnvironment() }
+      environment: { _ in SheetEnvironment(
+        coreDataClient: .live,
+        mainQueue: .main
+      ) }
     ),
   
   boardListReducer

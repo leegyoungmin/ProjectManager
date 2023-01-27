@@ -27,11 +27,11 @@
 		187A145F2979BAD800311B7A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A145E2979BAD800311B7A /* Extension.swift */; };
 		18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D4029827B0F005D7B13 /* PersistenceController.swift */; };
 		18914D4229827C8A005D7B13 /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
-		18914D5529827E33005D7B13 /* Assignment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5329827E33005D7B13 /* Assignment+CoreDataClass.swift */; };
-		18914D5629827E33005D7B13 /* Assignment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5429827E33005D7B13 /* Assignment+CoreDataProperties.swift */; };
-		18914D5929827E45005D7B13 /* AssignmentLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5729827E45005D7B13 /* AssignmentLog+CoreDataClass.swift */; };
-		18914D5A29827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5829827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift */; };
 		18914D5C2982AD4A005D7B13 /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */; };
+		18914D6929838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D6529838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift */; };
+		18914D6A29838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D6629838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift */; };
+		18914D6B29838FC7005D7B13 /* Assignment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D6729838FC7005D7B13 /* Assignment+CoreDataClass.swift */; };
+		18914D6C29838FC7005D7B13 /* Assignment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D6829838FC7005D7B13 /* Assignment+CoreDataProperties.swift */; };
 		18AB3C0C29796F0B00854929 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 18AB3C0B29796F0B00854929 /* ComposableArchitecture */; };
 		18AB3C2229799B6500854929 /* SheetStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2129799B6500854929 /* SheetStoreTest.swift */; };
 		18AB3C2B2979A87200854929 /* DetailStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2A2979A87200854929 /* DetailStoreTest.swift */; };
@@ -68,11 +68,11 @@
 		187A145C2979B7C300311B7A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		187A145E2979BAD800311B7A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		18914D4029827B0F005D7B13 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		18914D5329827E33005D7B13 /* Assignment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataClass.swift"; sourceTree = "<group>"; };
-		18914D5429827E33005D7B13 /* Assignment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		18914D5729827E45005D7B13 /* AssignmentLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssignmentLog+CoreDataClass.swift"; sourceTree = "<group>"; };
-		18914D5829827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssignmentLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
+		18914D6529838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssignmentLog+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18914D6629838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssignmentLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18914D6729838FC7005D7B13 /* Assignment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18914D6829838FC7005D7B13 /* Assignment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18AB3C1F29799B6500854929 /* StoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AB3C2129799B6500854929 /* SheetStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetStoreTest.swift; sourceTree = "<group>"; };
 		18AB3C2A2979A87200854929 /* DetailStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreTest.swift; sourceTree = "<group>"; };
@@ -203,10 +203,10 @@
 		18914D3F29827B03005D7B13 /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
-				18914D5729827E45005D7B13 /* AssignmentLog+CoreDataClass.swift */,
-				18914D5829827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift */,
-				18914D5329827E33005D7B13 /* Assignment+CoreDataClass.swift */,
-				18914D5429827E33005D7B13 /* Assignment+CoreDataProperties.swift */,
+				18914D6529838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift */,
+				18914D6629838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift */,
+				18914D6729838FC7005D7B13 /* Assignment+CoreDataClass.swift */,
+				18914D6829838FC7005D7B13 /* Assignment+CoreDataProperties.swift */,
 				18914D4029827B0F005D7B13 /* PersistenceController.swift */,
 				18914D5B2982AD4A005D7B13 /* CoreDataClient.swift */,
 			);
@@ -330,22 +330,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */,
-				18914D5929827E45005D7B13 /* AssignmentLog+CoreDataClass.swift in Sources */,
 				1854F126297578150082FB88 /* SheetCore.swift in Sources */,
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
 				1858234729728273001AE6BC /* DetailView.swift in Sources */,
 				1854F1232975738C0082FB88 /* AppCore.swift in Sources */,
 				18186ABC296FE62B00E0B695 /* Font.swift in Sources */,
 				18186AC729703A6500E0B695 /* Color.swift in Sources */,
+				18914D6A29838FC7005D7B13 /* AssignmentLog+CoreDataProperties.swift in Sources */,
 				183800752981640100396190 /* BoardListView.swift in Sources */,
-				18914D5529827E33005D7B13 /* Assignment+CoreDataClass.swift in Sources */,
+				18914D6929838FC7005D7B13 /* AssignmentLog+CoreDataClass.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
-				18914D5629827E33005D7B13 /* Assignment+CoreDataProperties.swift in Sources */,
 				18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */,
 				1838007329815B8C00396190 /* BoardListState.swift in Sources */,
-				18914D5A29827E45005D7B13 /* AssignmentLog+CoreDataProperties.swift in Sources */,
 				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
+				18914D6B29838FC7005D7B13 /* Assignment+CoreDataClass.swift in Sources */,
 				187A145D2979B7C300311B7A /* Date.swift in Sources */,
+				18914D6C29838FC7005D7B13 /* Assignment+CoreDataProperties.swift in Sources */,
 				18914D5C2982AD4A005D7B13 /* CoreDataClient.swift in Sources */,
 				18914D4229827C8A005D7B13 /* Project.xcdatamodeld in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */,
