@@ -11,6 +11,7 @@ struct NavigationBarCore: ReducerProtocol {
     struct State: Equatable {
         var isPresent: Bool = false
         var title: String = "Project Manager"
+        var detailState: DetailProjectCore.State?
     }
     
     enum Action: Equatable {
@@ -20,6 +21,9 @@ struct NavigationBarCore: ReducerProtocol {
         // Inner Action
         case _setIsPresent
         case _setIsNotPresent
+        
+        // Child Action
+        case detailAction(DetailProjectCore.Action)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -34,17 +38,23 @@ struct NavigationBarCore: ReducerProtocol {
                 return .task {
                     ._setIsNotPresent
                 }
-              
-            // Inner Action
+                
+                // Inner Action
             case ._setIsPresent:
-              state.isPresent = true
-              return .none
-              
+                state.isPresent = true
+                state.detailState = DetailProjectCore.State()
+                return .none
+                
             case ._setIsNotPresent:
-              state.isPresent = false
-              return .none
-            
+                state.isPresent = false
+                return .none
+                
+            case .detailAction:
+                return .none
             }
+        }
+        .ifLet(\.detailState, action: /Action.detailAction) {
+            DetailProjectCore()
         }
     }
 }

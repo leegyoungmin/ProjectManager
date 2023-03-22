@@ -31,8 +31,19 @@ struct NavigationBarView: View {
                     Image(systemName: "plus")
                         .textFont(size: 28, weight: .bold)
                 }
-                .sheet(isPresented: viewStore.binding(get: \.isPresent, send: ._setIsNotPresent)) {
-                    Text("Example")
+                .sheet(
+                    isPresented: viewStore.binding(
+                        get: \.isPresent,
+                        send: ._setIsNotPresent)
+                ) {
+                    IfLetStore(
+                        navigationStore.scope(
+                            state: \.detailState,
+                            action: NavigationBarCore.Action.detailAction
+                        )
+                    ) { store in
+                        ProjectDetailView(store: store)
+                    }
                 }
             }
         }
