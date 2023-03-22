@@ -22,6 +22,17 @@ extension Project {
   }
 }
 
+extension Project {
+    static let mockData: [Self] = [
+        .init(title: "Example1", date: Date(), description: "Example1 Example1 Example1 Example1 Example1 Example1 Example1 "),
+        .init(title: "Example2", date: Date(), description: "Example1 Example1 Example1 Example1 Example1 Example1 Example1 "),
+        .init(title: "Example3", date: Date(), description: "Example1 Example1 Example1 Example1 Example1 Example1 Example1 "),
+        .init(title: "Example4", date: Date(), description: "Example1 Example1 Example1 Example1 Example1 Example1 Example1 "),
+        .init(title: "Example5", date: Date(), description: "Example1 Example1 Example1 Example1 Example1 Example1 Example1 "),
+        .init(title: "Example6", date: Date(), description: "Example1 Example1 Example1 Example1 Example1 Example1 Example1 "),
+    ]
+}
+
 enum ProjectState: Int, Codable, CaseIterable {
   case todo = 1
   case doing = 2

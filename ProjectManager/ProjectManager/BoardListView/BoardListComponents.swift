@@ -66,19 +66,3 @@ struct BoardListCellView: View {
 
   }
 }
-
-struct BoardListView_Previews: PreviewProvider {
-  static var previews: some View {
-    BoardListCellView(
-      project: Project(
-        title: "Example",
-        date: Date(),
-        description: "Example"
-      )
-    )
-    .previewLayout(.sizeThatFits)
-    
-    BoardListSectionHeader(projectState: .todo, count: 20)
-      .previewLayout(.sizeThatFits)
-  }
-}

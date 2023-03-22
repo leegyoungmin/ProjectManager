@@ -16,6 +16,17 @@ struct ProjectManagerAppView: View {
                 reducer: NavigationBarCore()._printChanges()
             )
         )
+
+        HStack {
+            ForEach(1...3, id: \.self) { _ in
+                BoardListView(
+                    store: Store(
+                        initialState: BoardListCore.State(),
+                        reducer: BoardListCore()
+                    )
+                )
+            }
+        }
     }
   }
 }
