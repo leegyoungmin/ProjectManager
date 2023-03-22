@@ -35,7 +35,7 @@ enum BoardListAction {
 }
 
 struct BoardListEnvironment {
-  var coreDataClient: CoreDataClient
+//  var coreDataClient: CoreDataClient
   var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 

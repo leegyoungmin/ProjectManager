@@ -8,55 +8,46 @@ import SwiftUI
 import ComposableArchitecture
 
 struct NavigationBarView: View {
-  let navigationStore: Store<SheetState, SheetAction>
-  
-  var body: some View {
-    WithViewStore(navigationStore) { viewStore in
-      HStack(alignment: .center) {
-        Spacer()
-        
-        Text(viewStore.title)
-          .foregroundColor(.accentColor)
-          .textFont(size: 28, weight: .bold)
-        
-        Spacer()
-        
-        Button {
-          viewStore.send(.didTapPresent(true))
-        } label: {
-          Image(systemName: "plus")
-            .textFont(size: 28, weight: .bold)
+    let navigationStore: StoreOf<NavigationBarCore>
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            
+            WithViewStore(
+                navigationStore.scope(state: \.title)
+            ) {
+                Text($0.state)
+                    .foregroundColor(.accentColor)
+                    .textFont(size: 28, weight: .bold)
+            }
+            
+            Spacer()
+            
+            WithViewStore(navigationStore) { viewStore in
+                Button {
+                    viewStore.send(.didTapPresent(true))
+                } label: {
+                    Image(systemName: "plus")
+                        .textFont(size: 28, weight: .bold)
+                }
+                .sheet(isPresented: viewStore.binding(get: \.isPresent, send: ._setIsNotPresent)) {
+                    Text("Example")
+                }
+            }
         }
-      }
-      .padding()
-      .background(Color.secondaryBackground)
-      .sheet(
-        isPresented: viewStore.binding(
-          get: \.isPresent,
-          send: SheetAction.didTapPresent
-        )
-      ) {
-        IfLetStore(
-          self.navigationStore.scope(
-            state: \.detailState,
-            action: SheetAction.detailAction
-          )
-        ) { viewStore in
-          ProjectDetailView(store: viewStore)
-        }
-      }
+        .padding()
+        .background(.ultraThickMaterial)
     }
-  }
 }
 
 struct NavigationBarView_Previews: PreviewProvider {
-  static let store = Store(
-    initialState: SheetState(),
-    reducer: sheetReducer,
-    environment: SheetEnvironment(coreDataClient: .live, mainQueue: .main)
-  )
-  
-  static var previews: some View {
-    NavigationBarView(navigationStore: store)
-  }
+    static let store = Store(
+        initialState: NavigationBarCore.State(),
+        reducer: NavigationBarCore()
+    )
+    
+    static var previews: some View {
+        NavigationBarView(navigationStore: store)
+    }
 }

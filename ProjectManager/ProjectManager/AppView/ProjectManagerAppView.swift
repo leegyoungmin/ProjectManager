@@ -8,22 +8,14 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectManagerAppView: View {
-  let store: Store<AppState, AppAction>
-  
   var body: some View {
     VStack {
-      NavigationBarView(
-        navigationStore: self.store.scope(
-          state: \.sheetState,
-          action: AppAction.sheetAction
+        NavigationBarView(
+            navigationStore: Store(
+                initialState: NavigationBarCore.State(),
+                reducer: NavigationBarCore()._printChanges()
+            )
         )
-      )
-      BoardView(
-        store: self.store.scope(
-          state: \.boardState,
-          action: AppAction.boardAction
-        )
-      )
     }
   }
 }

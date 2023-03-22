@@ -7,9 +7,9 @@
 import Foundation
 import ComposableArchitecture
 
-struct AppState: Equatable {
-  var sheetState = SheetState()
-  var boardState = BoardState()
+struct AppState {
+  var sheetState = NavigationBarCore()
+//  var boardState = BoardState()
 }
 
 enum AppAction {
@@ -18,39 +18,39 @@ enum AppAction {
   // Inner Action
   
   // Child Action
-  case sheetAction(SheetAction)
-  case boardAction(BoardAction)
+    case sheetAction(NavigationBarCore.Action)
+//  case boardAction(BoardAction)
 }
 
 struct AppEnvironment {
-  var coreDataClient: CoreDataClient
-  var mainQueue: AnySchedulerOf<DispatchQueue>
+//  var coreDataClient: CoreDataClient
+//  var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
-let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
-  sheetReducer
-    .pullback(
-      state: \.sheetState,
-      action: /AppAction.sheetAction,
-      environment: { _ in SheetEnvironment(
-        coreDataClient: .live,
-        mainQueue: .main
-      ) }
-    ),
-  boardReducer
-    .pullback(
-      state: \.boardState,
-      action: /AppAction.boardAction,
-      environment: { _ in BoardEnvironment(coreDataClient: .live) }
-    ),
-  
-  Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
-    switch action {
-    case .sheetAction:
-      return .none
-      
-    case .boardAction:
-      return .none
-    }
-  }
-])
+//let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
+//  SheetCore
+//    .pullback(
+//      state: \.sheetState,
+//      action: /AppAction.sheetAction,
+//      environment: { _ in SheetEnvironment(
+//        coreDataClient: .live,
+//        mainQueue: .main
+//      ) }
+//    ),
+//  boardReducer
+//    .pullback(
+//      state: \.boardState,
+//      action: /AppAction.boardAction,
+//      environment: { _ in BoardEnvironment(coreDataClient: .live) }
+//    ),
+//  
+//  Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+//    switch action {
+//    case .sheetAction:
+//      return .none
+//      
+//    case .boardAction:
+//      return .none
+//    }
+//  }
+//])

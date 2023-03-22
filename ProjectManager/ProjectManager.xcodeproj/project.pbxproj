@@ -19,7 +19,7 @@
 		1838007329815B8C00396190 /* BoardListCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838007229815B8C00396190 /* BoardListCore.swift */; };
 		183800752981640100396190 /* BoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183800742981640100396190 /* BoardListView.swift */; };
 		1854F1232975738C0082FB88 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F1222975738C0082FB88 /* AppCore.swift */; };
-		1854F126297578150082FB88 /* SheetCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F125297578150082FB88 /* SheetCore.swift */; };
+		1854F126297578150082FB88 /* NavigationBarCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F125297578150082FB88 /* NavigationBarCore.swift */; };
 		1854F128297578290082FB88 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F127297578290082FB88 /* NavigationBarView.swift */; };
 		1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12F29757DFF0082FB88 /* BoardListComponents.swift */; };
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
@@ -63,7 +63,7 @@
 		1838007229815B8C00396190 /* BoardListCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCore.swift; sourceTree = "<group>"; };
 		183800742981640100396190 /* BoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListView.swift; sourceTree = "<group>"; };
 		1854F1222975738C0082FB88 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
-		1854F125297578150082FB88 /* SheetCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCore.swift; sourceTree = "<group>"; };
+		1854F125297578150082FB88 /* NavigationBarCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCore.swift; sourceTree = "<group>"; };
 		1854F127297578290082FB88 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		1854F12F29757DFF0082FB88 /* BoardListComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListComponents.swift; sourceTree = "<group>"; };
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 		1854F124297578050082FB88 /* SheetCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				1854F125297578150082FB88 /* SheetCore.swift */,
+				1854F125297578150082FB88 /* NavigationBarCore.swift */,
 				1854F127297578290082FB88 /* NavigationBarView.swift */,
 			);
 			path = SheetCoordinator;
@@ -352,7 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */,
-				1854F126297578150082FB88 /* SheetCore.swift in Sources */,
+				1854F126297578150082FB88 /* NavigationBarCore.swift in Sources */,
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
 				1858234729728273001AE6BC /* DetailView.swift in Sources */,
 				1854F1232975738C0082FB88 /* AppCore.swift in Sources */,
@@ -663,7 +663,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.40.2;
+				version = 0.50.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
