@@ -10,7 +10,13 @@ import SwiftUI
 
 struct BoardListCore: ReducerProtocol {
     struct State: Equatable {
-        var projects: [Project] = Project.mockData
+        let projectState: ProjectState
+        var projects: [Project]
+        
+        init(projectState: ProjectState, projects: [Project] = Project.mockData) {
+            self.projectState = projectState
+            self.projects = projects.filter { $0.state == projectState }
+        }
     }
     
     enum Action: Equatable {

@@ -11,46 +11,26 @@ struct BoardListView: View {
     let store: StoreOf<BoardListCore>
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("TODO")
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(.accentColor)
-                
-                Spacer()
-                
-                WithViewStore(store.scope(state: \.projects)) { projectsState in
-                    Text(projectsState.state.count.description)
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .bold()
-                        .padding()
-                        .background(
-                            Circle()
-                                .fill(.white)
-                        )
-                }
-            }
-            .padding()
-            .background(Color.secondaryBackground)
-            .cornerRadius(10)
+        VStack(spacing: 30) {
+            BoardListSectionHeader(viewStore: ViewStore(store))
+                .padding(.horizontal)
             
             ScrollView(.vertical, showsIndicators: false) {
                 WithViewStore(store) { viewStore in
-                    ForEach(viewStore.projects, id: \.id) { value in
-                        BoardListCellView(project: value)
+                    ForEach(viewStore.projects, id: \.id) { project in
+                        BoardListCellView(with: project)
                     }
                     .listRowSeparator(.hidden)
                 }
             }
+            .padding(.horizontal)
         }
     }
 }
 
 struct BoardListView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: BoardListCore.State(),
+        initialState: BoardListCore.State(projectState: .todo),
         reducer: BoardListCore()
     )
     
