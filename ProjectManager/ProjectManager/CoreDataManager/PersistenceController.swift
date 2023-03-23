@@ -22,6 +22,12 @@ class CoreDataManager {
     
     private lazy var context = container.viewContext
     
+    func loadAssignments() -> [Assignment] {
+        guard let assignments = try? context.fetch(Assignment.fetchRequest()) else {
+            return []
+        }
+        return assignments
+    }
 }
 
 //struct PersistenceController {

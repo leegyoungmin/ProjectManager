@@ -25,6 +25,9 @@ struct BoardListView: View {
             }
             .padding(.horizontal)
         }
+        .onAppear {
+            ViewStore(store).send(.onAppear)
+        }
     }
 }
 
