@@ -13,9 +13,9 @@ struct BoardListCore: ReducerProtocol {
         let projectState: ProjectState
         var projects: [Project]
         
-        init(projectState: ProjectState, projects: [Project] = Project.mockData) {
+        init(projectState: ProjectState, projects: [Project] = []) {
             self.projectState = projectState
-            self.projects = projects.filter { $0.state == projectState }
+            self.projects = projects
         }
     }
     

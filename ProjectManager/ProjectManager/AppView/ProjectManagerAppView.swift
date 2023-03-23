@@ -17,16 +17,12 @@ struct ProjectManagerAppView: View {
                 )
             )
             
-            HStack {
-                ForEach(ProjectState.allCases, id: \.rawValue) { state in
-                    BoardListView(
-                        store: Store(
-                            initialState: BoardListCore.State(projectState: state),
-                            reducer: BoardListCore()
-                        )
-                    )
-                }
-            }
+            BoardView(
+                store: Store(
+                    initialState: BoardCore.State(),
+                    reducer: BoardCore()._printChanges()
+                )
+            )
         }
     }
 }

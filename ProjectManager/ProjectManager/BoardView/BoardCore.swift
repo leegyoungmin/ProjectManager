@@ -9,8 +9,8 @@ import ComposableArchitecture
 struct BoardCore: ReducerProtocol {
     struct State: Equatable {
         var todoListState = BoardListCore.State(projectState: .todo)
-        var doingListState = BoardListCore.State(projectState: .todo)
-        var doneListState = BoardListCore.State(projectState: .todo)
+        var doingListState = BoardListCore.State(projectState: .doing)
+        var doneListState = BoardListCore.State(projectState: .done)
     }
     
     enum Action: Equatable {
@@ -27,6 +27,18 @@ struct BoardCore: ReducerProtocol {
             default:
                 return .none
             }
+        }
+        
+        Scope(state: \.todoListState, action: /Action.todoAction) {
+            BoardListCore()
+        }
+        
+        Scope(state: \.doingListState, action: /Action.doingAction) {
+            BoardListCore()
+        }
+        
+        Scope(state: \.doneListState, action: /Action.doneAction) {
+            BoardListCore()
         }
     }
 }
