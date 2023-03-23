@@ -42,12 +42,12 @@ struct ProjectDetailView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         switch viewStore.editMode {
                         case .inactive:
-                            Button("Edit") {
+                            Button("수정") {
                                 viewStore.send(.tapEditButton(true))
                             }
                             
                         case .active:
-                            Button("Confirm") {
+                            Button("완료") {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 
                                 viewStore.send(.tapEditButton(false))
@@ -59,6 +59,17 @@ struct ProjectDetailView: View {
                             }
                         @unknown default:
                             EmptyView()
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        WithViewStore(store) { viewStore in
+                            Button {
+                                viewStore.send(.tapSaveButton)
+                            } label: {
+                                Text("저장")
+                            }
                         }
                     }
                 }
