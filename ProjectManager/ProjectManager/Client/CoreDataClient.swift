@@ -7,7 +7,8 @@
 import ComposableArchitecture
 
 struct CoreDataClient {
-    var loadAssignments: @Sendable () async throws -> [Assignment]
+    var loadAssignments: @Sendable (ProjectState) async throws -> [Assignment]
+    var addAssignment: @Sendable (Project) async throws -> Bool
 }
 
 extension DependencyValues {
@@ -20,7 +21,10 @@ extension DependencyValues {
 extension CoreDataClient: DependencyKey {
     static let liveValue = CoreDataClient(
         loadAssignments: {
-            return CoreDataManager.shared.loadAssignments()
+            return CoreDataManager.shared.loadAssignments(state: $0)
+        },
+        addAssignment: {
+            return CoreDataManager.shared.saveProject(with: $0)
         }
     )
 }

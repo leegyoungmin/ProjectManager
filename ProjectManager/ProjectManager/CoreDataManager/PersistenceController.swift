@@ -22,11 +22,38 @@ class CoreDataManager {
     
     private lazy var context = container.viewContext
     
-    func loadAssignments() -> [Assignment] {
-        guard let assignments = try? context.fetch(Assignment.fetchRequest()) else {
-            return []
-        }
+    func loadAssignments(state: ProjectState) -> [Assignment] {
+        let request = Assignment.fetchRequest()
+        let predicate = NSPredicate(format: "state == %i", state.rawValue)
+        request.predicate = predicate
+        
+        guard let assignments = try? context.fetch(request) else { return [] }
+        
         return assignments
+    }
+    
+    func saveProject(with project: Project) -> Bool {
+        let object = Assignment(context: context)
+        
+        object.id = project.id
+        object.title = project.title
+        object.body = project.description
+        object.state = Int32(project.state.rawValue)
+        object.deadLineDate = project.date
+        
+        return save()
+    }
+    
+    private func save() -> Bool {
+        if context.hasChanges {
+            guard let _ = try? context.save() else {
+                return false
+            }
+            
+            return true
+        } else {
+            return false
+        }
     }
 }
 

@@ -31,10 +31,10 @@ struct BoardListCore: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .task {
+                return .task { [status = state.projectState] in
                     await ._AssignLoadResponse(
                         TaskResult {
-                            try await coreDataClient.loadAssignments()
+                            try await coreDataClient.loadAssignments(status)
                         }
                     )
                 }
