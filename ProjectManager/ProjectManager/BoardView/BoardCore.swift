@@ -3,6 +3,35 @@
 ////  ProjectManager
 ////
 ////  Copyright (c) 2023 Minii All rights reserved.
+
+import ComposableArchitecture
+
+struct BoardCore: ReducerProtocol {
+    struct State: Equatable {
+        var todoListState = BoardListCore.State(projectState: .todo)
+        var doingListState = BoardListCore.State(projectState: .todo)
+        var doneListState = BoardListCore.State(projectState: .todo)
+    }
+    
+    enum Action: Equatable {
+        
+        // Child Action
+        case todoAction(BoardListCore.Action)
+        case doingAction(BoardListCore.Action)
+        case doneAction(BoardListCore.Action)
+    }
+    
+    var body: some ReducerProtocol<State, Action> {
+        Reduce { state, action in
+            switch action {
+            default:
+                return .none
+            }
+        }
+    }
+}
+
+
 //
 //import ComposableArchitecture
 //

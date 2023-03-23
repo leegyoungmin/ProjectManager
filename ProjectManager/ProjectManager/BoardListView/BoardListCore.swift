@@ -42,7 +42,7 @@ struct BoardListCore: ReducerProtocol {
                 state.projects = assignments.map { $0.convertProject() }
                 return .none
                 
-            case let ._AssignLoadResponse(.failure):
+            case ._AssignLoadResponse(.failure):
                 return .none
             }
         }
