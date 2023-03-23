@@ -11,12 +11,12 @@ struct ProjectDetailView: View {
     let store: StoreOf<DetailProjectCore>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
+        WithViewStore(store) { viewStore in
             NavigationView {
                 VStack {
                     TextField("Title", text: viewStore.binding(\.$title))
                         .detailItemStyle()
-                    //  .disabled(!viewStore.isEditMode)
+                        .disabled(viewStore.editMode == .inactive)
                     
                     DatePicker(
                         "마감 기한",
@@ -26,18 +26,42 @@ struct ProjectDetailView: View {
                     )
                     .environment(\.locale, Locale(identifier: "ko_KR"))
                     .detailItemStyle()
-//                    .disabled(!viewStore.isEditMode)
+                    .disabled(viewStore.editMode == .inactive)
                     
                     TextEditor(
                         text: viewStore.binding(\.$body)
                     )
                     .detailItemStyle()
-//                    .disabled(!viewStore.isEditMode)
+                    .disabled(viewStore.editMode == .inactive)
                 }
                 .padding()
                 .background(Color.secondaryBackground)
 //                .navigationTitle(viewStore.projectStatus.description)
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        switch viewStore.editMode {
+                        case .inactive:
+                            Button("Edit") {
+                                viewStore.send(.tapEditButton(true))
+                            }
+                            
+                        case .active:
+                            Button("Confirm") {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                
+                                viewStore.send(.tapEditButton(false))
+                                
+                            }
+                        case .transient:
+                            Button("unKnown") {
+                                print("unknown")
+                            }
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                }
 //                .toolbar {
 //                    ToolbarItem(placement: .navigationBarLeading) {
 //                        if viewStore.editMode {

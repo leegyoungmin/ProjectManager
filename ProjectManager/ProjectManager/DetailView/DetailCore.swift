@@ -6,15 +6,25 @@
         
 import Foundation
 import ComposableArchitecture
+import SwiftUI
 
 struct DetailProjectCore: ReducerProtocol {
     struct State: Equatable {
         @BindingState var title: String = ""
         @BindingState var body: String = ""
         @BindingState var deadLineDate: Date = Date()
+        var editMode: EditMode = .inactive
     }
     
     enum Action:BindableAction, Equatable {
+        // User Action
+        case tapEditButton(Bool)
+        
+        // Inner Action
+        case _editModeToActive
+        case _editModeToInactive
+        
+        // Binding Action
         case binding(BindingAction<State>)
     }
     
@@ -22,6 +32,23 @@ struct DetailProjectCore: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .tapEditButton(true):
+                return .task {
+                    ._editModeToActive
+                }
+            case .tapEditButton(false):
+                return .task {
+                    ._editModeToInactive
+                }
+                
+            case ._editModeToActive:
+                state.editMode = .active
+                return .none
+                
+            case ._editModeToInactive:
+                state.editMode = .inactive
+                return .none
+                
             case .binding:
                 return .none
             }
