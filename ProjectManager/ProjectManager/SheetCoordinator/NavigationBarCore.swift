@@ -49,6 +49,10 @@ struct NavigationBarCore: ReducerProtocol {
                 state.isPresent = false
                 return .none
                 
+            case .detailAction(.tapSaveButton):
+                print("Tapped Save Button")
+                return .none
+                
             case .detailAction:
                 return .none
             }

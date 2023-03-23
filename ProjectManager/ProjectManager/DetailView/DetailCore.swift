@@ -13,8 +13,18 @@ struct DetailProjectCore: ReducerProtocol {
         @BindingState var title: String = ""
         @BindingState var body: String = ""
         @BindingState var deadLineDate: Date = Date()
-        let projectState: ProjectState = .todo
-        var editMode: EditMode = .inactive
+        var projectState: ProjectState = .todo
+        var editMode: EditMode = .active
+        
+        init(project: Project? = nil) {
+            if let project = project {
+                self.title = project.title
+                self.body = project.description
+                self.deadLineDate = project.date
+                self.projectState = project.state
+                self.editMode = .inactive
+            }
+        }
     }
     
     enum Action:BindableAction, Equatable {
