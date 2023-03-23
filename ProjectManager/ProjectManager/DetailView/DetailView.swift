@@ -10,105 +10,118 @@ import ComposableArchitecture
 struct ProjectDetailView: View {
     let store: StoreOf<DetailProjectCore>
     
+    init(store: StoreOf<DetailProjectCore>) {
+        self.store = store
+        UITextView.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
                 VStack {
-                    TextField("Title", text: viewStore.binding(\.$title))
-                        .detailItemStyle()
-                        .disabled(viewStore.editMode == .inactive)
+                    titleTextFieldSection
                     
-                    DatePicker(
-                        "마감 기한",
-                        selection: viewStore.binding(\.$deadLineDate),
-                        in: Date()...,
-                        displayedComponents: .date
-                    )
-                    .environment(\.locale, Locale(identifier: "ko_KR"))
-                    .detailItemStyle()
-                    .disabled(viewStore.editMode == .inactive)
+                    deadLineDatePickerSection
                     
-                    TextEditor(
-                        text: viewStore.binding(\.$body)
-                    )
-                    .detailItemStyle()
-                    .disabled(viewStore.editMode == .inactive)
+                    bodyTextEditorSection
                 }
                 .padding()
                 .background(Color.secondaryBackground)
-//                .navigationTitle(viewStore.projectStatus.description)
+                .navigationTitle(viewStore.projectState.description)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        switch viewStore.editMode {
-                        case .inactive:
-                            Button("수정") {
-                                viewStore.send(.tapEditButton(true))
-                            }
-                            
-                        case .active:
-                            Button("완료") {
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                
-                                viewStore.send(.tapEditButton(false))
-                                
-                            }
-                        case .transient:
-                            Button("unKnown") {
-                                print("unknown")
-                            }
-                        @unknown default:
-                            EmptyView()
-                        }
+                        leadingEditButton
+                        
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        
-                        WithViewStore(store) { viewStore in
-                            Button {
-                                viewStore.send(.tapSaveButton)
-                            } label: {
-                                Text("저장")
-                            }
-                        }
+                        trailingSaveButton
                     }
                 }
-//                .toolbar {
-//                    ToolbarItem(placement: .navigationBarLeading) {
-//                        if viewStore.editMode {
-//                            if viewStore.isEditMode {
-//                                Button("Apply") {
-//                                    UIApplication.shared.sendAction(
-//                                        #selector(UIResponder.resignFirstResponder),
-//                                        to: nil,
-//                                        from: nil,
-//                                        for: nil
-//                                    )
-//                                    viewStore.send(.didEditTap)
-//                                }
-//                            } else {
-//                                Button("Edit") {
-//                                    viewStore.send(.didEditTap)
-//                                }
-//                            }
-//                        } else {
-//                            Button("Cancel") {
-//                                viewStore.send(.didCancelTap)
-//                            }
-//                        }
-//                    }
-//
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        Button("Done") {
-//                            viewStore.send(.didDoneTap)
-//                        }
-//                    }
-//                }
             }
             .navigationViewStyle(.stack)
-            .onAppear {
-                UITextView.appearance().backgroundColor = .clear
+        }
+    }
+}
+
+// MARK: - Edit Components
+private extension ProjectDetailView {
+    var titleTextFieldSection: some View {
+        WithViewStore(store) { viewStore in
+            TextField("Title", text: viewStore.binding(\.$title))
+                .detailItemStyle()
+                .disabled(viewStore.editMode == .inactive)
+        }
+    }
+    
+    var deadLineDatePickerSection: some View {
+        WithViewStore(store) { viewStore in
+            DatePicker(
+                "마감 기한",
+                selection: viewStore.binding(\.$deadLineDate),
+                in: Date()...,
+                displayedComponents: .date
+            )
+            .environment(\.locale, Locale(identifier: "ko_KR"))
+            .detailItemStyle()
+            .disabled(viewStore.editMode == .inactive)
+        }
+    }
+    
+    var bodyTextEditorSection: some View {
+        WithViewStore(store) { viewStore in
+            TextEditor(text: viewStore.binding(\.$body))
+                .detailItemStyle()
+                .disabled(viewStore.editMode == .inactive)
+        }
+    }
+}
+
+// MARK: - Navigation Bar Button Items
+private extension ProjectDetailView {
+    var leadingEditButton: some View {
+        WithViewStore(store) { viewStore in
+            switch viewStore.editMode {
+            case .inactive:
+                editButton
+                
+            case .active:
+                confirmButton
+            default:
+                EmptyView()
             }
+        }
+    }
+    
+    var trailingSaveButton: some View {
+        WithViewStore(store) { viewStore in
+            Button {
+                ViewStore(store).send(.tapSaveButton)
+            } label: {
+                Text("저장")
+            }
+            
+            // TODO: - Disable 메서드 적용
+        }
+    }
+    
+    var editButton: some View {
+        Button("수정") {
+            ViewStore(store).send(.tapEditButton(true))
+        }
+    }
+    
+    var confirmButton: some View {
+        Button("완료") {
+            UIApplication.shared.sendAction(
+                #selector(UIResponder.resignFirstResponder),
+                to: nil,
+                from: nil,
+                for: nil
+            )
+            
+            ViewStore(store).send(.tapEditButton(false))
         }
     }
 }

@@ -13,6 +13,7 @@ struct DetailProjectCore: ReducerProtocol {
         @BindingState var title: String = ""
         @BindingState var body: String = ""
         @BindingState var deadLineDate: Date = Date()
+        let projectState: ProjectState = .todo
         var editMode: EditMode = .inactive
     }
     
