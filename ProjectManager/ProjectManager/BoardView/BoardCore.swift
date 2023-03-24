@@ -15,6 +15,7 @@ struct BoardCore: ReducerProtocol {
     
     enum Action: Equatable {
         // Child Action
+        case reloadData
         case todoAction(BoardListCore.Action)
         case doingAction(BoardListCore.Action)
         case doneAction(BoardListCore.Action)
@@ -28,6 +29,18 @@ struct BoardCore: ReducerProtocol {
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
+            case .reloadData:
+                return .concatenate(
+                    .run {
+                        await $0.send(.todoAction(.onAppear))
+                    },
+                    .run {
+                        await $0.send(.doingAction(.onAppear))
+                    },
+                    .run {
+                        await $0.send(.doneAction(.onAppear))
+                    }
+                )
             case .todoAction(._deleteAssignResponse):
                 return deleteAssignResponse(types: (.doing, .done)).animation()
                 

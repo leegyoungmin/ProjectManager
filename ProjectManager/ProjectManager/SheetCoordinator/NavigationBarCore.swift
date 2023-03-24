@@ -26,6 +26,8 @@ struct NavigationBarCore: ReducerProtocol {
         case detailAction(DetailProjectCore.Action)
     }
     
+    @Dependency(\.coreDataClient) var coreDataClient
+    
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
@@ -49,8 +51,8 @@ struct NavigationBarCore: ReducerProtocol {
                 state.isPresent = false
                 return .none
                 
-            case .detailAction(.tapSaveButton):
-                print("Tapped Save Button")
+            case .detailAction(._saveProjectResponse(.success)):
+                state.isPresent = false
                 return .none
                 
             case .detailAction:

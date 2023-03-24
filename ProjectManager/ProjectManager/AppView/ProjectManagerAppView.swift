@@ -8,21 +8,30 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectManagerAppView: View {
+    let store = Store(initialState: AppCore.State(), reducer: AppCore())
+    
     var body: some View {
-        VStack(spacing: 30) {
-            NavigationBarView(
-                navigationStore: Store(
-                    initialState: NavigationBarCore.State(),
-                    reducer: NavigationBarCore()._printChanges()
+        WithViewStore(store) { viewStore in
+            VStack(spacing: 30) {
+                NavigationBarView(
+                    navigationStore: store.scope(
+                        state: \.navigationBarState,
+                        action: AppCore.Action.navigationBarAction
+                    )
                 )
-            )
-            
-            BoardView(
-                store: Store(
-                    initialState: BoardCore.State(),
-                    reducer: BoardCore()._printChanges()
+                
+                BoardView(
+                    store: store.scope(
+                        state: \.boardState,
+                        action: AppCore.Action.boardAction
+                    )
                 )
-            )
+                .onChange(of: viewStore.navigationBarState.isPresent) {
+                    if $0 == false {
+                        viewStore.send(.boardAction(.reloadData))
+                    }
+                }
+            }
         }
     }
 }

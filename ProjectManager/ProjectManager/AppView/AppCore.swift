@@ -7,50 +7,24 @@
 import Foundation
 import ComposableArchitecture
 
-struct AppState {
-  var sheetState = NavigationBarCore()
-//  var boardState = BoardState()
+struct AppCore: ReducerProtocol {
+    struct State: Equatable {
+        var navigationBarState = NavigationBarCore.State()
+        var boardState = BoardCore.State()
+    }
+    
+    enum Action: Equatable {
+        case navigationBarAction(NavigationBarCore.Action)
+        case boardAction(BoardCore.Action)
+    }
+    
+    var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.navigationBarState, action: /Action.navigationBarAction) {
+            NavigationBarCore()
+        }
+        
+        Scope(state: \.boardState, action: /Action.boardAction) {
+            BoardCore()
+        }
+    }
 }
-
-enum AppAction {
-  // User Action
-  
-  // Inner Action
-  
-  // Child Action
-    case sheetAction(NavigationBarCore.Action)
-//  case boardAction(BoardAction)
-}
-
-struct AppEnvironment {
-//  var coreDataClient: CoreDataClient
-//  var mainQueue: AnySchedulerOf<DispatchQueue>
-}
-
-//let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
-//  SheetCore
-//    .pullback(
-//      state: \.sheetState,
-//      action: /AppAction.sheetAction,
-//      environment: { _ in SheetEnvironment(
-//        coreDataClient: .live,
-//        mainQueue: .main
-//      ) }
-//    ),
-//  boardReducer
-//    .pullback(
-//      state: \.boardState,
-//      action: /AppAction.boardAction,
-//      environment: { _ in BoardEnvironment(coreDataClient: .live) }
-//    ),
-//  
-//  Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
-//    switch action {
-//    case .sheetAction:
-//      return .none
-//      
-//    case .boardAction:
-//      return .none
-//    }
-//  }
-//])
