@@ -44,6 +44,22 @@ class CoreDataManager {
         return save()
     }
     
+    func deleteProject(with project: Project) -> Bool {
+        let fetchRequest = Assignment.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", project.id.uuidString)
+        fetchRequest.predicate = predicate
+        
+        guard let assignments = try? context.fetch(fetchRequest) else {
+            return false
+        }
+        
+        for assignment in assignments {
+            context.delete(assignment)
+        }
+        
+        return save()
+    }
+    
     private func save() -> Bool {
         if context.hasChanges {
             guard let _ = try? context.save() else {

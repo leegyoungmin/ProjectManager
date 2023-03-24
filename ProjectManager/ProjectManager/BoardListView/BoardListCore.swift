@@ -27,6 +27,7 @@ struct BoardListCore: ReducerProtocol {
         
         case _assignLoadResponse(TaskResult<[Assignment]>)
         case _saveAssignResponse(TaskResult<Bool>)
+        case _deleteAssignResponse(TaskResult<Bool>)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -42,16 +43,26 @@ struct BoardListCore: ReducerProtocol {
                 }
                 
             case .appendProject(let project):
-                var project = project
-                project.state = state.projectState
+                var newProject = project
+                newProject.id = UUID()
+                newProject.state = state.projectState
                 
-                return .task { [project = project] in
-                    await ._saveAssignResponse(
-                        TaskResult {
-                            try await coreDataClient.addAssignment(project)
-                        }
-                    )
-                }
+                return .concatenate(
+                    .task { [newProject = newProject] in
+                        await ._saveAssignResponse(
+                            TaskResult {
+                                try await coreDataClient.addAssignment(newProject)
+                            }
+                        )
+                    },
+                    .task { [project = project] in
+                        await ._deleteAssignResponse(
+                            TaskResult {
+                                try await coreDataClient.deleteAssignment(project)
+                            }
+                        )
+                    }
+                )
                 
             case let ._assignLoadResponse(.success(assignments)):
                 state.projects = assignments.map { $0.convertProject() }
@@ -61,11 +72,12 @@ struct BoardListCore: ReducerProtocol {
                 return .none
                 
             case ._saveAssignResponse(.success):
-                return .run {
-                    await $0.send(.onAppear)
-                }
+                return .run { await $0.send(.onAppear) }
                 
             case ._saveAssignResponse(.failure):
+                return .none
+                
+            default:
                 return .none
             }
         }
