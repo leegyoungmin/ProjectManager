@@ -14,7 +14,6 @@ struct BoardCore: ReducerProtocol {
     }
     
     enum Action: Equatable {
-        
         // Child Action
         case todoAction(BoardListCore.Action)
         case doingAction(BoardListCore.Action)

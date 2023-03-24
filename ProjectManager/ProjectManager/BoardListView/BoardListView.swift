@@ -14,16 +14,46 @@ struct BoardListView: View {
         VStack(spacing: 30) {
             BoardListSectionHeader(viewStore: ViewStore(store))
                 .padding(.horizontal)
-            
-            ScrollView(.vertical, showsIndicators: false) {
+            List {
                 WithViewStore(store) { viewStore in
                     ForEach(viewStore.projects, id: \.id) { project in
                         BoardListCellView(with: project)
+                            .onDrag {
+                                project.provider
+                            }
+                    }
+                    .onInsert(of: Project.Wrapper.readableTypes) { index, providers in
+                        providers.reversed().loadItems(Project.self) { project, error in
+                            if let project = project {
+                                DispatchQueue.main.async {
+                                    viewStore.send(.appendProject(project))
+                                }
+                            }
+                        }
+                    }
+                    .onMove {
+                        print($0, $1)
+                    }
+                    .onDelete {
+                        print($0)
                     }
                     .listRowSeparator(.hidden)
+                    
                 }
             }
             .padding(.horizontal)
+            .listStyle(.plain)
+        }
+        .onDrop(of: Project.Wrapper.readableTypes, isTargeted: nil) { providers, location in
+            providers.reversed().loadItems(Project.self) { project, error in
+                if let project = project {
+                    DispatchQueue.main.async {
+                        ViewStore(store).send(.appendProject(project))
+                    }
+                }
+            }
+            
+            return true
         }
         .onAppear {
             ViewStore(store).send(.onAppear)

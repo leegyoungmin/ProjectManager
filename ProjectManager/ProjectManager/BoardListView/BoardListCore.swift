@@ -23,6 +23,7 @@ struct BoardListCore: ReducerProtocol {
     
     enum Action: Equatable {
         case onAppear
+        case appendProject(Project)
         
         case _AssignLoadResponse(TaskResult<[Assignment]>)
     }
@@ -38,6 +39,11 @@ struct BoardListCore: ReducerProtocol {
                         }
                     )
                 }
+                
+            case .appendProject(let project):
+                state.projects.append(project)
+                return .none
+                
             case let ._AssignLoadResponse(.success(assignments)):
                 state.projects = assignments.map { $0.convertProject() }
                 return .none
