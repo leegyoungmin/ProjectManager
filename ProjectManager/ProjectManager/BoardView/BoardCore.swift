@@ -29,70 +29,19 @@ struct BoardCore: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .todoAction(._deleteAssignResponse):
-                return .concatenate(
-                    .task {
-                        await ._fetchResponse(
-                            .doing,
-                            TaskResult {
-                                try await coreDataClient.loadAssignments(.doing)
-                            }
-                        )
-                    },
-                    .task {
-                        await ._fetchResponse(
-                            .done,
-                            TaskResult {
-                                try await coreDataClient.loadAssignments(.done)
-                            }
-                        )
-                    }
-                )
+                return deleteAssignResponse(types: (.doing, .done)).animation()
                 
             case .todoAction:
                 return .none
                 
             case .doingAction(._deleteAssignResponse):
-                return .concatenate(
-                    .task {
-                        await ._fetchResponse(
-                            .todo,
-                            TaskResult {
-                                try await coreDataClient.loadAssignments(.todo)
-                            }
-                        )
-                    },
-                    .task {
-                        await ._fetchResponse(
-                            .done,
-                            TaskResult {
-                                try await coreDataClient.loadAssignments(.done)
-                            }
-                        )
-                    }
-                )
+                return deleteAssignResponse(types: (.todo, .done)).animation()
                 
             case .doingAction:
                 return .none
                 
             case .doneAction(._deleteAssignResponse):
-                return .concatenate(
-                    .task {
-                        await ._fetchResponse(
-                            .todo,
-                            TaskResult {
-                                try await coreDataClient.loadAssignments(.todo)
-                            }
-                        )
-                    },
-                    .task {
-                        await ._fetchResponse(
-                            .doing,
-                            TaskResult {
-                                try await coreDataClient.loadAssignments(.doing)
-                            }
-                        )
-                    }
-                )
+                return deleteAssignResponse(types: (.todo, .doing)).animation()
                 
             case .doneAction:
                 return .none
@@ -125,5 +74,26 @@ struct BoardCore: ReducerProtocol {
         Scope(state: \.doneListState, action: /Action.doneAction) {
             BoardListCore()
         }
+    }
+    
+    func deleteAssignResponse(types: (ProjectState, ProjectState)) -> EffectTask<Action> {
+        return .concatenate(
+            .task {
+                await ._fetchResponse(
+                    types.0,
+                    TaskResult {
+                        try await coreDataClient.loadAssignments(types.0)
+                    }
+                )
+            },
+            .task {
+                await ._fetchResponse(
+                    types.1,
+                    TaskResult {
+                        try await coreDataClient.loadAssignments(types.1)
+                    }
+                )
+            }
+        )
     }
 }

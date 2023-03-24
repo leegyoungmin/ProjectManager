@@ -40,7 +40,7 @@ struct BoardListCore: ReducerProtocol {
                             try await coreDataClient.loadAssignments(status)
                         }
                     )
-                }
+                }.animation()
                 
             case .appendProject(let project):
                 var newProject = project
@@ -62,7 +62,7 @@ struct BoardListCore: ReducerProtocol {
                             }
                         )
                     }
-                )
+                ).animation()
                 
             case let ._assignLoadResponse(.success(assignments)):
                 state.projects = assignments.map { $0.convertProject() }
