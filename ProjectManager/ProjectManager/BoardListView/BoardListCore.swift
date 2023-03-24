@@ -25,7 +25,8 @@ struct BoardListCore: ReducerProtocol {
         case onAppear
         case appendProject(Project)
         
-        case _AssignLoadResponse(TaskResult<[Assignment]>)
+        case _assignLoadResponse(TaskResult<[Assignment]>)
+        case _saveAssignResponse(TaskResult<Bool>)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -33,7 +34,7 @@ struct BoardListCore: ReducerProtocol {
             switch action {
             case .onAppear:
                 return .task { [status = state.projectState] in
-                    await ._AssignLoadResponse(
+                    await ._assignLoadResponse(
                         TaskResult {
                             try await coreDataClient.loadAssignments(status)
                         }
@@ -41,14 +42,30 @@ struct BoardListCore: ReducerProtocol {
                 }
                 
             case .appendProject(let project):
-                state.projects.append(project)
-                return .none
+                var project = project
+                project.state = state.projectState
                 
-            case let ._AssignLoadResponse(.success(assignments)):
+                return .task { [project = project] in
+                    await ._saveAssignResponse(
+                        TaskResult {
+                            try await coreDataClient.addAssignment(project)
+                        }
+                    )
+                }
+                
+            case let ._assignLoadResponse(.success(assignments)):
                 state.projects = assignments.map { $0.convertProject() }
                 return .none
                 
-            case ._AssignLoadResponse(.failure):
+            case ._assignLoadResponse(.failure):
+                return .none
+                
+            case ._saveAssignResponse(.success):
+                return .run {
+                    await $0.send(.onAppear)
+                }
+                
+            case ._saveAssignResponse(.failure):
                 return .none
             }
         }

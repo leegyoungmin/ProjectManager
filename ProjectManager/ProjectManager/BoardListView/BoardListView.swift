@@ -31,17 +31,12 @@ struct BoardListView: View {
                             }
                         }
                     }
-                    .onMove {
-                        print($0, $1)
-                    }
                     .onDelete {
                         print($0)
                     }
                     .listRowSeparator(.hidden)
-                    
                 }
             }
-            .padding(.horizontal)
             .listStyle(.plain)
         }
         .onDrop(of: Project.Wrapper.readableTypes, isTargeted: nil) { providers, location in
@@ -63,7 +58,10 @@ struct BoardListView: View {
 
 struct BoardListView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: BoardListCore.State(projectState: .todo),
+        initialState: BoardListCore.State(
+            projectState: .doing,
+            projects: Project.mockData
+        ),
         reducer: BoardListCore()
     )
     

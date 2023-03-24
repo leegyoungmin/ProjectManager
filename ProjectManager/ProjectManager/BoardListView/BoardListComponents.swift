@@ -44,14 +44,15 @@ struct BoardListCellView: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading) {
                 Text(project.title)
                     .font(.title)
                     .bold()
                     .lineLimit(1)
+                    .padding(.bottom, 5)
                 
                 Text(project.description)
-                    .lineLimit(3)
+                    .lineLimit(2)
                     .font(.body)
                 
                 Text(project.date.onlyDate())
@@ -59,11 +60,22 @@ struct BoardListCellView: View {
                     .font(.footnote)
                     .foregroundColor(project.dateColor)
             }
+            .padding()
             
             Spacer()
         }
-        .padding()
         .background(Color.secondaryBackground)
         .cornerRadius(10)
+    }
+}
+
+struct BoardListComponents_Previews: PreviewProvider {
+    static let project = Project.mockData.first!
+    
+    static var previews: some View {
+        Group {
+            BoardListCellView(with: project)
+                .previewLayout(.sizeThatFits)
+        }
     }
 }
