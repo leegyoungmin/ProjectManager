@@ -6,15 +6,5 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="state" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="log" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AssignmentLog" inverseName="assignment" inverseEntity="AssignmentLog"/>
     </entity>
-    <entity name="AssignmentLog" representedClassName=".AssignmentLog" syncable="YES">
-        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="assignment" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Assignment" inverseName="log" inverseEntity="Assignment"/>
-    </entity>
-    <configuration name="Cloud" usedWithCloudKit="YES">
-        <memberEntity name="Assignment"/>
-        <memberEntity name="AssignmentLog"/>
-    </configuration>
 </model>
