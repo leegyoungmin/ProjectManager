@@ -12,23 +12,32 @@ struct ProjectManagerAppView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack(spacing: 30) {
-                NavigationBarView(
-                    navigationStore: store.scope(
-                        state: \.navigationBarState,
-                        action: AppCore.Action.navigationBarAction
-                    )
-                )
-                
-                BoardView(
+            if viewStore.user == nil {
+                LoginView(
                     store: store.scope(
-                        state: \.boardState,
-                        action: AppCore.Action.boardAction
+                        state: \.authState,
+                        action: AppCore.Action.authAction
                     )
                 )
-                .onChange(of: viewStore.navigationBarState.isPresent) {
-                    if $0 == false {
-                        viewStore.send(.boardAction(.reloadData))
+            } else {
+                VStack(spacing: 30) {
+                    NavigationBarView(
+                        navigationStore: store.scope(
+                            state: \.navigationBarState,
+                            action: AppCore.Action.navigationBarAction
+                        )
+                    )
+
+                    BoardView(
+                        store: store.scope(
+                            state: \.boardState,
+                            action: AppCore.Action.boardAction
+                        )
+                    )
+                    .onChange(of: viewStore.navigationBarState.isPresent) {
+                        if $0 == false {
+                            viewStore.send(.boardAction(.reloadData))
+                        }
                     }
                 }
             }
