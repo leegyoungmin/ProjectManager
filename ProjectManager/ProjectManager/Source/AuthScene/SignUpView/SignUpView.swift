@@ -51,31 +51,41 @@ extension SignUpView {
     
     var emailSection: some View {
         WithViewStore(store) { viewStore in
-            TextField("", text: viewStore.binding(\.$email))
-                .placeholder(when: viewStore.email.isEmpty) {
-                    Text("이메일을 입력해주세요.")
-                        .foregroundColor(.gray)
-                }
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .strokeBorder(Color.accentColor)
-                }
+            VStack {
+                TextField("", text: viewStore.binding(\.$email))
+                    .placeholder(when: viewStore.email.isEmpty) {
+                        Text("이메일을 입력해주세요.")
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: .infinity)
+                            .strokeBorder(Color.accentColor)
+                    }
+                
+                // TODO: - Valid Text 생성
+                Text(viewStore.isValidEmail.description)
+            }
         }
     }
     
     var passwordSection: some View {
         WithViewStore(store) { viewStore in
-            SecureField("", text: viewStore.binding(\.$password))
-                .placeholder(when: viewStore.password.isEmpty) {
-                    Text("비밀번호를 입력해주세요.")
-                        .foregroundColor(.gray)
-                }
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .strokeBorder(Color.accentColor)
-                }
+            VStack {
+                SecureField("", text: viewStore.binding(\.$password))
+                    .placeholder(when: viewStore.password.isEmpty) {
+                        Text("비밀번호를 입력해주세요.")
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: .infinity)
+                            .strokeBorder(Color.accentColor)
+                    }
+                
+                // TODO: - Valid Password Text
+                Text(viewStore.isValidPassword.description)
+            }
         }
     }
     
