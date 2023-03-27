@@ -81,7 +81,7 @@ extension SignUpView {
     
     var confirmPasswordSection: some View {
         WithViewStore(store) { viewStore in
-            VStack {
+            VStack(alignment: .leading) {
                 SecureField("", text: viewStore.binding(\.$confirmPassword))
                     .placeholder(when: viewStore.confirmPassword.isEmpty) {
                         Text("비밀번호를 다시한번 입력해주세요.")
@@ -94,8 +94,11 @@ extension SignUpView {
                     }
                 
                 // TODO: - 비밀번호 Validation Text 생성
-                Text(viewStore.isCorrect.description)
+                Text(viewStore.isCorrect ? "비밀번호가 동일합니다." : "비밀번호가 동일하지 않습니다. 확인해주세요.")
                     .opacity(viewStore.confirmPassword.isEmpty ? 0 : 1)
+                    .opacity(viewStore.isCorrect ? 0 : 1)
+                    .foregroundColor(.red)
+                    .padding(.horizontal)
             }
         }
     }
