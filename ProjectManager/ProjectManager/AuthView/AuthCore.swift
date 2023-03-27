@@ -8,17 +8,19 @@ import ComposableArchitecture
 
 struct AuthCore: ReducerProtocol {
     struct State: Equatable {
-        
+        @BindingState var email: String = ""
+        @BindingState var password: String = ""
     }
     
-    enum Action: Equatable {
-        
+    enum Action: BindableAction, Equatable {
+        case binding(BindingAction<State>)
     }
     
     var body: some ReducerProtocol<State, Action> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-            default:
+            case .binding:
                 return .none
             }
         }

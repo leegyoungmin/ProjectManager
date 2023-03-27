@@ -45,34 +45,39 @@ private extension LoginView {
     }
     
     var emailSection: some View {
-        TextField("", text: .constant(""))
-            .placeholder("Email", when: true)
-            .foregroundColor(.white)
-            .autocorrectionDisabled()
-            .textInputAutocapitalization(.never)
-            .frame(maxWidth: 400)
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: .infinity)
-                    .strokeBorder()
-                    .foregroundColor(.white)
-            }
-            .padding(.horizontal)
+        WithViewStore(store) { viewStore in
+            TextField("", text: viewStore.binding(\.$email))
+                .placeholder("Email", when: viewStore.email.isEmpty)
+                .foregroundColor(.white)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .frame(maxWidth: 400)
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .strokeBorder()
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal)
+        }
     }
     
     var passwordSection: some View {
-        SecureField("", text: .constant(""))
-            .placeholder("password", when: true)
-            .autocorrectionDisabled()
-            .textInputAutocapitalization(.never)
-            .frame(maxWidth: 400)
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: .infinity)
-                    .strokeBorder()
-                    .foregroundColor(.white)
-            }
-            .padding(.horizontal)
+        WithViewStore(store) { viewStore in
+            SecureField("", text: viewStore.binding(\.$password))
+                .placeholder("password", when: viewStore.password.isEmpty)
+                .foregroundColor(.white)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .frame(maxWidth: 400)
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .strokeBorder()
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal)
+        }
     }
     
     var loginButton: some View {
