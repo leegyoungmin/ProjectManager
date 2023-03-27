@@ -82,6 +82,7 @@ private extension LoginView {
     
     var loginButton: some View {
         Button {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             ViewStore(store).send(.tapLoginButton)
         } label: {
             Text("로그인하기")
