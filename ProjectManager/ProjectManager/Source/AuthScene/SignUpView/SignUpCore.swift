@@ -8,17 +8,27 @@ import ComposableArchitecture
 
 struct SignUpCore: ReducerProtocol {
     struct State: Equatable {
-        
+        @BindingState var email: String = ""
+        @BindingState var password: String = ""
+        @BindingState var confirmPassword: String = ""
+        var isCorrect: Bool = false
     }
     
-    enum Action: Equatable {
-        
+    enum Action: BindableAction, Equatable {
+        case binding(BindingAction<State>)
     }
     
     var body: some ReducerProtocol<State, Action> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-            default:
+            case .binding(\.$confirmPassword):
+                let password = state.password
+                let confirm = state.confirmPassword
+                state.isCorrect = (password == confirm)
+                return .none
+                
+            case .binding:
                 return .none
             }
         }
