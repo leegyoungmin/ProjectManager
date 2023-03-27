@@ -95,6 +95,7 @@ extension SignUpView {
                 
                 // TODO: - 비밀번호 Validation Text 생성
                 Text(viewStore.isCorrect.description)
+                    .opacity(viewStore.confirmPassword.isEmpty ? 0 : 1)
             }
         }
     }

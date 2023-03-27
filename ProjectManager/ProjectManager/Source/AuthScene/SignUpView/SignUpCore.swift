@@ -11,6 +11,7 @@ struct SignUpCore: ReducerProtocol {
         @BindingState var email: String = ""
         @BindingState var password: String = ""
         @BindingState var confirmPassword: String = ""
+        
         var isCorrect: Bool = false
     }
     
@@ -25,6 +26,7 @@ struct SignUpCore: ReducerProtocol {
             case .binding(\.$confirmPassword):
                 let password = state.password
                 let confirm = state.confirmPassword
+                
                 state.isCorrect = (password == confirm)
                 return .none
                 
