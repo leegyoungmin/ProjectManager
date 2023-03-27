@@ -10,12 +10,16 @@ import FirebaseAuth
 struct AuthCore: ReducerProtocol {
     struct State: Equatable {
         var signInState = SignInCore.State()
+        
+        var isPresentSignUp: Bool = false
         var signUpState: SignUpCore.State?
     }
     
     enum Action: Equatable {
         // User Action
         // Inner Action
+        case _presentSignUp(Bool)
+        
         // Child Action
         case signInAction(SignInCore.Action)
         case signUpAction(SignUpCore.Action)
@@ -27,6 +31,10 @@ struct AuthCore: ReducerProtocol {
             switch action {
             case .signInAction(.signUp):
                 state.signUpState = SignUpCore.State()
+                return .task { ._presentSignUp(true) }
+                
+            case let ._presentSignUp(isPresent):
+                state.isPresentSignUp = isPresent
                 return .none
                 
             default:

@@ -17,6 +17,22 @@ struct AuthScene: View {
                 action: AuthCore.Action.signInAction
             )
         )
+        .sheet(
+            isPresented: ViewStore(store).binding(
+                get: \.isPresentSignUp,
+                send: ._presentSignUp(false)
+            )
+        ) {
+            IfLetStore(
+                store.scope(
+                    state: \.signUpState,
+                    action: AuthCore.Action.signUpAction
+                )
+            ) { store in
+                SignUpView(store: store)
+            }
+            .interactiveDismissDisabled()
+        }
     }
 }
 

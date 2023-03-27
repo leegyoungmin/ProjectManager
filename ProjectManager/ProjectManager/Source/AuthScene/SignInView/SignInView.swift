@@ -114,7 +114,7 @@ private extension SignInView {
                     .foregroundColor(.white)
                 
                 Button {
-                    print("Tapped Sign up")
+                    ViewStore(store).send(.signUp)
                 } label: {
                     Text("회원 가입하기")
                         .bold()
