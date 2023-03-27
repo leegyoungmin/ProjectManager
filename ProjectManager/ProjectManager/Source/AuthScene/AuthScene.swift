@@ -44,5 +44,6 @@ struct AuthScene_Previews: PreviewProvider {
     
     static var previews: some View {
         AuthScene(store: store)
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
