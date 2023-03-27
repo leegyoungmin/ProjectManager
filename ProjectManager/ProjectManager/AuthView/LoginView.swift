@@ -4,11 +4,11 @@
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
+import ComposableArchitecture
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = ""
-    @State var password: String = ""
+    let store: StoreOf<AuthCore>
     
     var body: some View {
         HStack {
@@ -31,24 +31,22 @@ struct LoginView: View {
             
             Spacer()
         }
+        .background(LinearGradient(colors: [Color("DarkAccent"), Color.accentColor], startPoint: .top, endPoint: .bottom))
     }
 }
 
 private extension LoginView {
     var titleSection: some View {
-        VStack {
-            Spacer()
-                .frame(maxHeight: 200)
-            
-            Text("Sorting")
-                .foregroundColor(.white)
-                .font(.system(size: 100, weight: .bold))
-        }
+        Text("Sorting")
+            .foregroundColor(.white)
+            .font(.system(size: 100, weight: .bold))
+            .frame(maxHeight: 300, alignment: .bottom)
+            .padding()
     }
     
     var emailSection: some View {
-        TextField("", text: $email)
-            .placeholder("Email", when: email.isEmpty)
+        TextField("", text: .constant(""))
+            .placeholder("Email", when: true)
             .foregroundColor(.white)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
@@ -63,8 +61,8 @@ private extension LoginView {
     }
     
     var passwordSection: some View {
-        SecureField("", text: $password)
-            .placeholder("password", when: email.isEmpty)
+        SecureField("", text: .constant(""))
+            .placeholder("password", when: true)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
             .frame(maxWidth: 400)
@@ -122,9 +120,24 @@ private extension LoginView {
 }
 
 struct AuthView_Previews: PreviewProvider {
+    static let previewDevices = [
+        "iPad (9th generation)",
+        "iPad Air",
+        "iPad mini (5th generation)",
+        "iPad Pro (9.7-inch)",
+        "iPad Pro (12.9-inch) (6th generation)"
+    ]
+    static let store = Store(initialState: AuthCore.State(), reducer: AuthCore())
     static var previews: some View {
-        LoginView()
-            .background(Gradient(colors: [Color(red: 29 / 255, green: 39 / 255, blue: 60 / 255), Color(red: 60 / 255, green: 120 / 255, blue: 170 / 255)]))
-            .previewInterfaceOrientation(.landscapeRight)
+        Group {
+            ForEach(previewDevices, id: \.self) {
+                LoginView(store: store)
+                    .previewInterfaceOrientation(.landscapeRight)
+                    .previewDevice(PreviewDevice(rawValue: $0))
+                    .previewLayout(.sizeThatFits)
+                    .previewDisplayName($0)
+            }
+        }
+        
     }
 }
