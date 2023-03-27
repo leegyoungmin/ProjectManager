@@ -25,7 +25,7 @@ struct AppCore: ReducerProtocol {
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
-            case let .authAction(._signInWithEmailAndPassword(.success(user))):
+            case .authAction(.signInAction(._signInWithEmailAndPassword(.success(let user)))):
                 state.user = user
                 return .none
                 

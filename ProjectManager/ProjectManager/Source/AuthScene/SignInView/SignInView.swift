@@ -7,8 +7,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct LoginView: View {
-    let store: StoreOf<AuthCore>
+struct SignInView: View {
+    let store: StoreOf<SignInCore>
     
     var body: some View {
         HStack {
@@ -35,7 +35,7 @@ struct LoginView: View {
     }
 }
 
-private extension LoginView {
+private extension SignInView {
     var titleSection: some View {
         Text("Sorting")
             .foregroundColor(.white)
@@ -88,7 +88,7 @@ private extension LoginView {
                 from: nil,
                 for: nil
             )
-            ViewStore(store).send(.tapLoginButton)
+            ViewStore(store).send(.login)
         } label: {
             Text("로그인하기")
         }
@@ -138,11 +138,11 @@ struct AuthView_Previews: PreviewProvider {
         "iPad Pro (9.7-inch)",
         "iPad Pro (12.9-inch) (6th generation)"
     ]
-    static let store = Store(initialState: AuthCore.State(), reducer: AuthCore())
+    static let store = Store(initialState: SignInCore.State(), reducer: SignInCore())
     static var previews: some View {
         Group {
             ForEach(previewDevices, id: \.self) {
-                LoginView(store: store)
+                SignInView(store: store)
                     .previewInterfaceOrientation(.landscapeRight)
                     .previewDevice(PreviewDevice(rawValue: $0))
                     .previewLayout(.sizeThatFits)

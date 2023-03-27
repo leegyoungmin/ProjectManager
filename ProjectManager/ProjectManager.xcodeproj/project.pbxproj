@@ -28,7 +28,7 @@
 		184D63F929CEC0E400FD73D1 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 184D63F829CEC0E400FD73D1 /* FirebaseDatabaseSwift */; };
 		184D63FB29CEC0E400FD73D1 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 184D63FA29CEC0E400FD73D1 /* FirebaseStorage */; };
 		184D63FD29CEC0E400FD73D1 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 184D63FC29CEC0E400FD73D1 /* FirebaseStorageCombine-Community */; };
-		184D640029CEC2FA00FD73D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D63FF29CEC2FA00FD73D1 /* LoginView.swift */; };
+		184D640029CEC2FA00FD73D1 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D63FF29CEC2FA00FD73D1 /* SignInView.swift */; };
 		184D640429CEC30500FD73D1 /* AuthCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D640329CEC30500FD73D1 /* AuthCore.swift */; };
 		184D640629CEC82900FD73D1 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D640529CEC82900FD73D1 /* TextField.swift */; };
 		1854F1232975738C0082FB88 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F1222975738C0082FB88 /* AppCore.swift */; };
@@ -48,6 +48,8 @@
 		18E6FC6729D1611F008E9B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
 		18E6FC6829D1611F008E9B6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */; };
 		18E6FC6929D1611F008E9B6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
+		18E6FC6C29D16236008E9B6B /* SignInCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6B29D16236008E9B6B /* SignInCore.swift */; };
+		18E6FC6E29D1640D008E9B6B /* AuthScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6D29D1640D008E9B6B /* AuthScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +82,7 @@
 		184D63D429CEB71000FD73D1 /* Assignment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		184D63EA29CEBDF000FD73D1 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
-		184D63FF29CEC2FA00FD73D1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		184D63FF29CEC2FA00FD73D1 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		184D640329CEC30500FD73D1 /* AuthCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCore.swift; sourceTree = "<group>"; };
 		184D640529CEC82900FD73D1 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		1854F1222975738C0082FB88 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
@@ -98,6 +100,8 @@
 		18AB3C2A2979A87200854929 /* DetailStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreTest.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
+		18E6FC6B29D16236008E9B6B /* SignInCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCore.swift; sourceTree = "<group>"; };
+		18E6FC6D29D1640D008E9B6B /* AuthScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,19 +250,21 @@
 		18E6FC5C29D15FBC008E9B6B /* AuthScene */ = {
 			isa = PBXGroup;
 			children = (
+				18E6FC6D29D1640D008E9B6B /* AuthScene.swift */,
 				184D640329CEC30500FD73D1 /* AuthCore.swift */,
 				18E6FC5E29D15FCA008E9B6B /* SignUpView */,
-				18E6FC5D29D15FC6008E9B6B /* LoginView */,
+				18E6FC5D29D15FC6008E9B6B /* SignInView */,
 			);
 			path = AuthScene;
 			sourceTree = "<group>";
 		};
-		18E6FC5D29D15FC6008E9B6B /* LoginView */ = {
+		18E6FC5D29D15FC6008E9B6B /* SignInView */ = {
 			isa = PBXGroup;
 			children = (
-				184D63FF29CEC2FA00FD73D1 /* LoginView.swift */,
+				184D63FF29CEC2FA00FD73D1 /* SignInView.swift */,
+				18E6FC6B29D16236008E9B6B /* SignInCore.swift */,
 			);
-			path = LoginView;
+			path = SignInView;
 			sourceTree = "<group>";
 		};
 		18E6FC5E29D15FCA008E9B6B /* SignUpView */ = {
@@ -468,10 +474,12 @@
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */,
 				184D640629CEC82900FD73D1 /* TextField.swift in Sources */,
+				18E6FC6C29D16236008E9B6B /* SignInCore.swift in Sources */,
 				1838007329815B8C00396190 /* BoardListCore.swift in Sources */,
 				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
-				184D640029CEC2FA00FD73D1 /* LoginView.swift in Sources */,
+				184D640029CEC2FA00FD73D1 /* SignInView.swift in Sources */,
 				187A145D2979B7C300311B7A /* Date.swift in Sources */,
+				18E6FC6E29D1640D008E9B6B /* AuthScene.swift in Sources */,
 				18914D4229827C8A005D7B13 /* Project.xcdatamodeld in Sources */,
 				1862A5E52983E0B000919209 /* BoardCore.swift in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */,

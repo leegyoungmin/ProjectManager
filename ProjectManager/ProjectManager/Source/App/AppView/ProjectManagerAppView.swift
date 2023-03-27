@@ -13,7 +13,7 @@ struct ProjectManagerAppView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             if viewStore.user == nil {
-                LoginView(
+                AuthScene(
                     store: store.scope(
                         state: \.authState,
                         action: AppCore.Action.authAction
