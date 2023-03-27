@@ -52,6 +52,8 @@
 		18E6FC6E29D1640D008E9B6B /* AuthScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6D29D1640D008E9B6B /* AuthScene.swift */; };
 		18E6FC7029D165F3008E9B6B /* BoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6F29D165F3008E9B6B /* BoardScene.swift */; };
 		18E6FC7229D16627008E9B6B /* BoardSceneCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC7129D16627008E9B6B /* BoardSceneCore.swift */; };
+		18E6FC7429D168F3008E9B6B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC7329D168F3008E9B6B /* SignUpView.swift */; };
+		18E6FC7629D1692E008E9B6B /* SignUpCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC7529D1692E008E9B6B /* SignUpCore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,8 @@
 		18E6FC6D29D1640D008E9B6B /* AuthScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScene.swift; sourceTree = "<group>"; };
 		18E6FC6F29D165F3008E9B6B /* BoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScene.swift; sourceTree = "<group>"; };
 		18E6FC7129D16627008E9B6B /* BoardSceneCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSceneCore.swift; sourceTree = "<group>"; };
+		18E6FC7329D168F3008E9B6B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		18E6FC7529D1692E008E9B6B /* SignUpCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +278,8 @@
 		18E6FC5E29D15FCA008E9B6B /* SignUpView */ = {
 			isa = PBXGroup;
 			children = (
+				18E6FC7329D168F3008E9B6B /* SignUpView.swift */,
+				18E6FC7529D1692E008E9B6B /* SignUpCore.swift */,
 			);
 			path = SignUpView;
 			sourceTree = "<group>";
@@ -474,6 +480,7 @@
 				1858234729728273001AE6BC /* DetailView.swift in Sources */,
 				1854F1232975738C0082FB88 /* AppCore.swift in Sources */,
 				18186ABC296FE62B00E0B695 /* Font.swift in Sources */,
+				18E6FC7629D1692E008E9B6B /* SignUpCore.swift in Sources */,
 				18186AC729703A6500E0B695 /* Color.swift in Sources */,
 				183AFF4B29CC3D2C008108CB /* CoreDataClient.swift in Sources */,
 				183800752981640100396190 /* BoardListView.swift in Sources */,
@@ -492,6 +499,7 @@
 				1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */,
 				1862A5E72983E1A600919209 /* BoardView.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
+				18E6FC7429D168F3008E9B6B /* SignUpView.swift in Sources */,
 				18E6FC7029D165F3008E9B6B /* BoardScene.swift in Sources */,
 				184D63D529CEB71000FD73D1 /* Assignment+CoreDataClass.swift in Sources */,
 				18186AC2296FE81500E0B695 /* Project.swift in Sources */,

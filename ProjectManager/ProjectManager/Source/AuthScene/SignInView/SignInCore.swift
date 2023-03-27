@@ -16,6 +16,7 @@ struct SignInCore: ReducerProtocol {
     enum Action: BindableAction, Equatable {
         // User Action
         case login
+        case signUp
         
         // Inner Action
         case _signInWithEmailAndPassword(TaskResult<User>)
@@ -37,6 +38,9 @@ struct SignInCore: ReducerProtocol {
                         }
                     )
                 }
+                
+            case .signUp:
+                return .none
                 
             case ._signInWithEmailAndPassword:
                 return .none
