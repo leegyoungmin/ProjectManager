@@ -82,7 +82,7 @@ private extension LoginView {
     
     var loginButton: some View {
         Button {
-            print("Tapped Login Button")
+            ViewStore(store).send(.tapLoginButton)
         } label: {
             Text("로그인하기")
         }
@@ -92,7 +92,7 @@ private extension LoginView {
         .cornerRadius(.infinity)
         .background {
             RoundedRectangle(cornerRadius: .infinity)
-                .fill(Color(red: 60 / 255, green: 120 / 255, blue: 170 / 255))
+                .fill(Color.accentColor)
         }
         .padding()
     }

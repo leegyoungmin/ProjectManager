@@ -9,7 +9,7 @@ import FirebaseAuth
 import FirebaseAuthCombineSwift
 
 struct AuthClient {
-    var authRequest: @Sendable (_ id: String, _ password: String) async throws -> Bool
+    var authRequest: @Sendable (_ id: String, _ password: String) async throws -> User
 }
 
 extension DependencyValues {
@@ -20,16 +20,19 @@ extension DependencyValues {
 }
 
 extension AuthClient: DependencyKey {
-    static var user: User?
+    enum AuthError: Error {
+        case loginError
+    }
     
     static let liveValue = AuthClient(
         authRequest: { email, password in
             let result = try? await Auth.auth().signIn(withEmail: email, password: password)
             
-            guard let result = result else { return false }
+            guard let result = result else {
+                throw AuthError.loginError
+            }
             
-            Self.user = result.user
-            return true
+            return result.user
         }
     )
 }
