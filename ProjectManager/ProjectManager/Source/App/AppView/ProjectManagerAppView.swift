@@ -20,26 +20,7 @@ struct ProjectManagerAppView: View {
                     )
                 )
             } else {
-                VStack(spacing: 30) {
-                    NavigationBarView(
-                        navigationStore: store.scope(
-                            state: \.navigationBarState,
-                            action: AppCore.Action.navigationBarAction
-                        )
-                    )
-
-                    BoardView(
-                        store: store.scope(
-                            state: \.boardState,
-                            action: AppCore.Action.boardAction
-                        )
-                    )
-                    .onChange(of: viewStore.navigationBarState.isPresent) {
-                        if $0 == false {
-                            viewStore.send(.boardAction(.reloadData))
-                        }
-                    }
-                }
+                
             }
         }
     }

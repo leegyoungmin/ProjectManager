@@ -50,6 +50,8 @@
 		18E6FC6929D1611F008E9B6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
 		18E6FC6C29D16236008E9B6B /* SignInCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6B29D16236008E9B6B /* SignInCore.swift */; };
 		18E6FC6E29D1640D008E9B6B /* AuthScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6D29D1640D008E9B6B /* AuthScene.swift */; };
+		18E6FC7029D165F3008E9B6B /* BoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC6F29D165F3008E9B6B /* BoardScene.swift */; };
+		18E6FC7229D16627008E9B6B /* BoardSceneCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6FC7129D16627008E9B6B /* BoardSceneCore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,8 @@
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
 		18E6FC6B29D16236008E9B6B /* SignInCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCore.swift; sourceTree = "<group>"; };
 		18E6FC6D29D1640D008E9B6B /* AuthScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScene.swift; sourceTree = "<group>"; };
+		18E6FC6F29D165F3008E9B6B /* BoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScene.swift; sourceTree = "<group>"; };
+		18E6FC7129D16627008E9B6B /* BoardSceneCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSceneCore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +294,8 @@
 				18E6FC6429D1606E008E9B6B /* DetailBoardView */,
 				18E6FC6229D16045008E9B6B /* BoardListView */,
 				18E6FC6129D16019008E9B6B /* BoardView */,
+				18E6FC6F29D165F3008E9B6B /* BoardScene.swift */,
+				18E6FC7129D16627008E9B6B /* BoardSceneCore.swift */,
 			);
 			path = BoardScene;
 			sourceTree = "<group>";
@@ -474,6 +480,7 @@
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */,
 				184D640629CEC82900FD73D1 /* TextField.swift in Sources */,
+				18E6FC7229D16627008E9B6B /* BoardSceneCore.swift in Sources */,
 				18E6FC6C29D16236008E9B6B /* SignInCore.swift in Sources */,
 				1838007329815B8C00396190 /* BoardListCore.swift in Sources */,
 				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
@@ -485,6 +492,7 @@
 				1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */,
 				1862A5E72983E1A600919209 /* BoardView.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
+				18E6FC7029D165F3008E9B6B /* BoardScene.swift in Sources */,
 				184D63D529CEB71000FD73D1 /* Assignment+CoreDataClass.swift in Sources */,
 				18186AC2296FE81500E0B695 /* Project.swift in Sources */,
 			);

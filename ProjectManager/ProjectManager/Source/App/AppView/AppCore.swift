@@ -12,14 +12,12 @@ struct AppCore: ReducerProtocol {
     struct State: Equatable {
         var user: User?
         var authState = AuthCore.State()
-        var navigationBarState = NavigationBarCore.State()
-        var boardState = BoardCore.State()
+        var boardSceneState = BoardSceneCore.State()
     }
     
     enum Action: Equatable {
         case authAction(AuthCore.Action)
-        case navigationBarAction(NavigationBarCore.Action)
-        case boardAction(BoardCore.Action)
+        case boardSceneAction(BoardSceneCore.Action)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -38,12 +36,9 @@ struct AppCore: ReducerProtocol {
             AuthCore()
         }
         
-        Scope(state: \.navigationBarState, action: /Action.navigationBarAction) {
-            NavigationBarCore()
+        Scope(state: \.boardSceneState, action: /Action.boardSceneAction) {
+            BoardSceneCore()
         }
         
-        Scope(state: \.boardState, action: /Action.boardAction) {
-            BoardCore()
-        }
     }
 }
