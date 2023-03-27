@@ -19,8 +19,15 @@ struct ProjectManagerAppView: View {
                         action: AppCore.Action.authAction
                     )
                 )
-            } else {
-                
+            }
+            
+            IfLetStore(
+                store.scope(
+                    state: \.boardSceneState,
+                    action: AppCore.Action.boardSceneAction
+                )
+            ) { store in
+                BoardScene(store: store)
             }
         }
     }

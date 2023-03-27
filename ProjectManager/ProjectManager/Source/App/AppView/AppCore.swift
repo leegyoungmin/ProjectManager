@@ -12,7 +12,7 @@ struct AppCore: ReducerProtocol {
     struct State: Equatable {
         var user: User?
         var authState = AuthCore.State()
-        var boardSceneState = BoardSceneCore.State()
+        var boardSceneState: BoardSceneCore.State?
     }
     
     enum Action: Equatable {
@@ -25,20 +25,19 @@ struct AppCore: ReducerProtocol {
             switch action {
             case .authAction(.signInAction(._signInWithEmailAndPassword(.success(let user)))):
                 state.user = user
+                state.boardSceneState = BoardSceneCore.State()
                 return .none
                 
             default:
                 return .none
             }
         }
+        .ifLet(\.boardSceneState, action: /Action.boardSceneAction) {
+            BoardSceneCore()
+        }
         
         Scope(state: \.authState, action: /Action.authAction) {
             AuthCore()
         }
-        
-        Scope(state: \.boardSceneState, action: /Action.boardSceneAction) {
-            BoardSceneCore()
-        }
-        
     }
 }
