@@ -7,7 +7,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct ProjectDetailView: View {
+struct DetailProjectView: View {
     let store: StoreOf<DetailProjectCore>
     
     init(store: StoreOf<DetailProjectCore>) {
@@ -46,7 +46,7 @@ struct ProjectDetailView: View {
 }
 
 // MARK: - Edit Components
-private extension ProjectDetailView {
+private extension DetailProjectView {
     var titleTextFieldSection: some View {
         WithViewStore(store) { viewStore in
             TextField("Title", text: viewStore.binding(\.$title))
@@ -79,7 +79,7 @@ private extension ProjectDetailView {
 }
 
 // MARK: - Navigation Bar Button Items
-private extension ProjectDetailView {
+private extension DetailProjectView {
     var leadingEditButton: some View {
         WithViewStore(store) { viewStore in
             switch viewStore.editMode {
@@ -145,7 +145,7 @@ private extension View {
 struct DetailView_Previews: PreviewProvider {
     static let store = Store(initialState: DetailProjectCore.State(), reducer: DetailProjectCore())
     static var previews: some View {
-        ProjectDetailView(store: store)
+        DetailProjectView(store: store)
             .previewLayout(.fixed(width: 1000, height: 1200))
             .padding()
     }

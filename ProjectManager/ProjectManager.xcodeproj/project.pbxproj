@@ -14,15 +14,12 @@
 		18186AC729703A6500E0B695 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC629703A6500E0B695 /* Color.swift */; };
 		181DF174297148C4003EC956 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF173297148C4003EC956 /* Image.swift */; };
 		18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */; };
-		18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
-		18359ABD296C1F82000D6C73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
 		1838007329815B8C00396190 /* BoardListCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838007229815B8C00396190 /* BoardListCore.swift */; };
 		183800752981640100396190 /* BoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183800742981640100396190 /* BoardListView.swift */; };
 		183AFF4B29CC3D2C008108CB /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AFF4A29CC3D2C008108CB /* CoreDataClient.swift */; };
 		183AFF4F29CD472A008108CB /* Project+Providable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183AFF4E29CD472A008108CB /* Project+Providable.swift */; };
 		184D63D529CEB71000FD73D1 /* Assignment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D63D329CEB71000FD73D1 /* Assignment+CoreDataClass.swift */; };
 		184D63D629CEB71000FD73D1 /* Assignment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D63D429CEB71000FD73D1 /* Assignment+CoreDataProperties.swift */; };
-		184D63E929CEBD1300FD73D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */; };
 		184D63EB29CEBDF000FD73D1 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184D63EA29CEBDF000FD73D1 /* AuthClient.swift */; };
 		184D63F129CEC0E400FD73D1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 184D63F029CEC0E400FD73D1 /* FirebaseAnalytics */; };
 		184D63F329CEC0E400FD73D1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 184D63F229CEC0E400FD73D1 /* FirebaseAuth */; };
@@ -48,6 +45,9 @@
 		18AB3C0C29796F0B00854929 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 18AB3C0B29796F0B00854929 /* ComposableArchitecture */; };
 		18AB3C2229799B6500854929 /* SheetStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2129799B6500854929 /* SheetStoreTest.swift */; };
 		18AB3C2B2979A87200854929 /* DetailStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2A2979A87200854929 /* DetailStoreTest.swift */; };
+		18E6FC6729D1611F008E9B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
+		18E6FC6829D1611F008E9B6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */; };
+		18E6FC6929D1611F008E9B6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +75,7 @@
 		183800742981640100396190 /* BoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListView.swift; sourceTree = "<group>"; };
 		183AFF4A29CC3D2C008108CB /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
 		183AFF4E29CD472A008108CB /* Project+Providable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+Providable.swift"; sourceTree = "<group>"; };
-		183AFF5029CD48DF008108CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		183AFF5029CD48DF008108CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		184D63D329CEB71000FD73D1 /* Assignment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		184D63D429CEB71000FD73D1 /* Assignment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assignment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -126,15 +126,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1804381C2975B43F000CC2DA /* AppView */ = {
-			isa = PBXGroup;
-			children = (
-				1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */,
-				1854F1222975738C0082FB88 /* AppCore.swift */,
-			);
-			path = AppView;
-			sourceTree = "<group>";
-		};
 		18186AB8296FE5FA00E0B695 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,22 +169,8 @@
 		18359AB4296C1F81000D6C73 /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				184D63FE29CEC2EF00FD73D1 /* AuthView */,
-				184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */,
-				183AFF5029CD48DF008108CB /* Info.plist */,
-				183AFF4929CC3D24008108CB /* Client */,
-				1804381C2975B43F000CC2DA /* AppView */,
-				18359AB9296C1F82000D6C73 /* Assets.xcassets */,
-				1854F12E29757DF50082FB88 /* BoardListView */,
-				1862A5E32983E0A800919209 /* BoardView */,
-				18914D3F29827B03005D7B13 /* CoreDataManager */,
-				185823452972825B001AE6BC /* DetailView */,
-				18186AC0296FE80E00E0B695 /* Model */,
-				18359ABB296C1F82000D6C73 /* Preview Content */,
-				18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */,
-				18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */,
-				1854F124297578050082FB88 /* SheetCoordinator */,
-				18186AB8296FE5FA00E0B695 /* Utility */,
+				18E6FC6629D160EF008E9B6B /* Resource */,
+				18E6FC5B29D15FA8008E9B6B /* Source */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -206,59 +183,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		183AFF4929CC3D24008108CB /* Client */ = {
+		183AFF4929CC3D24008108CB /* Clients */ = {
 			isa = PBXGroup;
 			children = (
 				183AFF4A29CC3D2C008108CB /* CoreDataClient.swift */,
+				18914D3F29827B03005D7B13 /* CoreDataManager */,
 				184D63EA29CEBDF000FD73D1 /* AuthClient.swift */,
 			);
-			path = Client;
-			sourceTree = "<group>";
-		};
-		184D63FE29CEC2EF00FD73D1 /* AuthView */ = {
-			isa = PBXGroup;
-			children = (
-				184D63FF29CEC2FA00FD73D1 /* LoginView.swift */,
-				184D640329CEC30500FD73D1 /* AuthCore.swift */,
-			);
-			path = AuthView;
-			sourceTree = "<group>";
-		};
-		1854F124297578050082FB88 /* SheetCoordinator */ = {
-			isa = PBXGroup;
-			children = (
-				1854F125297578150082FB88 /* NavigationBarCore.swift */,
-				1854F127297578290082FB88 /* NavigationBarView.swift */,
-			);
-			path = SheetCoordinator;
-			sourceTree = "<group>";
-		};
-		1854F12E29757DF50082FB88 /* BoardListView */ = {
-			isa = PBXGroup;
-			children = (
-				1854F12F29757DFF0082FB88 /* BoardListComponents.swift */,
-				1838007229815B8C00396190 /* BoardListCore.swift */,
-				183800742981640100396190 /* BoardListView.swift */,
-			);
-			path = BoardListView;
-			sourceTree = "<group>";
-		};
-		185823452972825B001AE6BC /* DetailView */ = {
-			isa = PBXGroup;
-			children = (
-				1858234629728273001AE6BC /* DetailView.swift */,
-				1804381F2975B7E2000CC2DA /* DetailCore.swift */,
-			);
-			path = DetailView;
-			sourceTree = "<group>";
-		};
-		1862A5E32983E0A800919209 /* BoardView */ = {
-			isa = PBXGroup;
-			children = (
-				1862A5E42983E0B000919209 /* BoardCore.swift */,
-				1862A5E62983E1A600919209 /* BoardView.swift */,
-			);
-			path = BoardView;
+			path = Clients;
 			sourceTree = "<group>";
 		};
 		18914D3F29827B03005D7B13 /* CoreDataManager */ = {
@@ -287,6 +219,122 @@
 				187A145E2979BAD800311B7A /* Extension.swift */,
 			);
 			path = StoreTests;
+			sourceTree = "<group>";
+		};
+		18E6FC5829D15F86008E9B6B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */,
+				18E6FC5F29D15FED008E9B6B /* AppView */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		18E6FC5B29D15FA8008E9B6B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				18E6FC5829D15F86008E9B6B /* App */,
+				183AFF4929CC3D24008108CB /* Clients */,
+				18186AC0296FE80E00E0B695 /* Model */,
+				18186AB8296FE5FA00E0B695 /* Utility */,
+				18E6FC6029D16010008E9B6B /* BoardScene */,
+				18E6FC5C29D15FBC008E9B6B /* AuthScene */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		18E6FC5C29D15FBC008E9B6B /* AuthScene */ = {
+			isa = PBXGroup;
+			children = (
+				184D640329CEC30500FD73D1 /* AuthCore.swift */,
+				18E6FC5E29D15FCA008E9B6B /* SignUpView */,
+				18E6FC5D29D15FC6008E9B6B /* LoginView */,
+			);
+			path = AuthScene;
+			sourceTree = "<group>";
+		};
+		18E6FC5D29D15FC6008E9B6B /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				184D63FF29CEC2FA00FD73D1 /* LoginView.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		18E6FC5E29D15FCA008E9B6B /* SignUpView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SignUpView;
+			sourceTree = "<group>";
+		};
+		18E6FC5F29D15FED008E9B6B /* AppView */ = {
+			isa = PBXGroup;
+			children = (
+				1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */,
+				1854F1222975738C0082FB88 /* AppCore.swift */,
+			);
+			path = AppView;
+			sourceTree = "<group>";
+		};
+		18E6FC6029D16010008E9B6B /* BoardScene */ = {
+			isa = PBXGroup;
+			children = (
+				18E6FC6529D160AF008E9B6B /* NavigationView */,
+				18E6FC6429D1606E008E9B6B /* DetailBoardView */,
+				18E6FC6229D16045008E9B6B /* BoardListView */,
+				18E6FC6129D16019008E9B6B /* BoardView */,
+			);
+			path = BoardScene;
+			sourceTree = "<group>";
+		};
+		18E6FC6129D16019008E9B6B /* BoardView */ = {
+			isa = PBXGroup;
+			children = (
+				1862A5E42983E0B000919209 /* BoardCore.swift */,
+				1862A5E62983E1A600919209 /* BoardView.swift */,
+			);
+			path = BoardView;
+			sourceTree = "<group>";
+		};
+		18E6FC6229D16045008E9B6B /* BoardListView */ = {
+			isa = PBXGroup;
+			children = (
+				1854F12F29757DFF0082FB88 /* BoardListComponents.swift */,
+				1838007229815B8C00396190 /* BoardListCore.swift */,
+				183800742981640100396190 /* BoardListView.swift */,
+			);
+			path = BoardListView;
+			sourceTree = "<group>";
+		};
+		18E6FC6429D1606E008E9B6B /* DetailBoardView */ = {
+			isa = PBXGroup;
+			children = (
+				1858234629728273001AE6BC /* DetailView.swift */,
+				1804381F2975B7E2000CC2DA /* DetailCore.swift */,
+			);
+			path = DetailBoardView;
+			sourceTree = "<group>";
+		};
+		18E6FC6529D160AF008E9B6B /* NavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				1854F125297578150082FB88 /* NavigationBarCore.swift */,
+				1854F127297578290082FB88 /* NavigationBarView.swift */,
+			);
+			path = NavigationView;
+			sourceTree = "<group>";
+		};
+		18E6FC6629D160EF008E9B6B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				18359AB9296C1F82000D6C73 /* Assets.xcassets */,
+				184D63E829CEBD1300FD73D1 /* GoogleService-Info.plist */,
+				183AFF5029CD48DF008108CB /* Info.plist */,
+				18359ABB296C1F82000D6C73 /* Preview Content */,
+				18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,9 +432,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18359ABD296C1F82000D6C73 /* Preview Assets.xcassets in Resources */,
-				18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */,
-				184D63E929CEBD1300FD73D1 /* GoogleService-Info.plist in Resources */,
+				18E6FC6729D1611F008E9B6B /* Assets.xcassets in Resources */,
+				18E6FC6829D1611F008E9B6B /* GoogleService-Info.plist in Resources */,
+				18E6FC6929D1611F008E9B6B /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,15 +622,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ProjectManager/ProjectManager.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ProjectManager/Resource/ProjectManager.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ProjectManager/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ProjectManager/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = BH7V49ZZ2G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sorting;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -612,15 +660,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ProjectManager/ProjectManager.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ProjectManager/Resource/ProjectManager.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ProjectManager/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ProjectManager/Resource/Preview Content\"";
 				DEVELOPMENT_TEAM = BH7V49ZZ2G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sorting;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

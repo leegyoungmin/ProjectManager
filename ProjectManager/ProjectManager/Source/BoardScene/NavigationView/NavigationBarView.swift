@@ -42,7 +42,7 @@ struct NavigationBarView: View {
                             action: NavigationBarCore.Action.detailAction
                         )
                     ) { store in
-                        ProjectDetailView(store: store)
+                        DetailProjectView(store: store)
                     }
                 }
             }
