@@ -134,18 +134,16 @@ extension SignUpView {
     }
     
     var signUpButton: some View {
-        WithViewStore(store) { viewStore in
-            Button("회원가입하기") {
-                print("12")
-            }
-            .foregroundColor(.white)
-            .font(.title.bold())
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background {
-                RoundedRectangle(cornerRadius: .infinity)
-                    .fill(Color.accentColor)
-            }
+        Button("회원가입하기") {
+            ViewStore(store).send(.signUp)
+        }
+        .foregroundColor(.white)
+        .font(.title.bold())
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background {
+            RoundedRectangle(cornerRadius: .infinity)
+                .fill(Color.accentColor)
         }
     }
 }

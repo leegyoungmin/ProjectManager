@@ -6,6 +6,9 @@
 
 import ComposableArchitecture
 import Foundation
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseDatabaseSwift
 
 struct SignUpCore: ReducerProtocol {
     struct State: Equatable {
@@ -19,8 +22,16 @@ struct SignUpCore: ReducerProtocol {
     }
     
     enum Action: BindableAction, Equatable {
+        // User Action
+        case signUp
         case binding(BindingAction<State>)
+        
+        // Inner Action
+        case _signUpResponse(TaskResult<User>)
+        case _setDatabaseResponse(TaskResult<DatabaseReference>)
     }
+    
+    @Dependency(\.authClient) var authClient
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
@@ -44,6 +55,31 @@ struct SignUpCore: ReducerProtocol {
                 return .none
                 
             case .binding:
+                return .none
+                
+            case .signUp:
+                return .task { [email = state.email, password = state.password] in
+                    await ._signUpResponse(
+                        TaskResult {
+                            try await authClient.signUp(email, password)
+                        }
+                    )
+                }
+                
+            case let ._signUpResponse(.success(user)):
+                return .task { [user = user] in
+                    await ._setDatabaseResponse(
+                        TaskResult {
+                            try await authClient.createUserInfo(user)
+                        }
+                    )
+                }
+                
+            case ._signUpResponse(.failure):
+                return .none
+                
+            case ._setDatabaseResponse(let result):
+                print(result)
                 return .none
             }
         }

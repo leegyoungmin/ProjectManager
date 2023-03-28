@@ -34,7 +34,7 @@ struct SignInCore: ReducerProtocol {
                 return .task { [email = state.email, password = state.password] in
                     await ._signInWithEmailAndPassword(
                         TaskResult {
-                            try await authClient.authRequest(email, password)
+                            try await authClient.signIn(email, password)
                         }
                     )
                 }

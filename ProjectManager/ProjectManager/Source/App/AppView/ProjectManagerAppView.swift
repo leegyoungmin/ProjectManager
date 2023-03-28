@@ -8,7 +8,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectManagerAppView: View {
-    let store = Store(initialState: AppCore.State(), reducer: AppCore())
+    let store = Store(initialState: AppCore.State(), reducer: AppCore()._printChanges())
     
     var body: some View {
         WithViewStore(store) { viewStore in
