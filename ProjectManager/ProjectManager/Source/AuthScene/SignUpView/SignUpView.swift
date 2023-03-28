@@ -71,7 +71,7 @@ extension SignUpView {
     
     var passwordSection: some View {
         WithViewStore(store) { viewStore in
-            VStack {
+            VStack(alignment: .leading) {
                 SecureField("", text: viewStore.binding(\.$password))
                     .placeholder(when: viewStore.password.isEmpty) {
                         Text("비밀번호를 입력해주세요.")
@@ -84,7 +84,12 @@ extension SignUpView {
                     }
                 
                 // TODO: - Valid Password Text
-                Text(viewStore.isValidPassword.description)
+                Text(viewStore.isValidPassword ? "" : "올바르지 않은 비밀번호 형식입니다.\n영어, 특수문자, 숫자를 포함하여 20자 이하여야 합니다.")
+                    .opacity(viewStore.password.isEmpty ? 0 : 1)
+                    .opacity(viewStore.isValidPassword ? 0 : 1)
+                    .foregroundColor(.red)
+                    .padding(.horizontal)
+                    .frame(minHeight: 50)
             }
         }
     }
@@ -104,7 +109,7 @@ extension SignUpView {
                     }
                 
                 // TODO: - 비밀번호 Validation Text 생성
-                Text(viewStore.isCorrect ? "비밀번호가 동일합니다." : "비밀번호가 동일하지 않습니다. 확인해주세요.")
+                Text(viewStore.isCorrect ? "" : "비밀번호가 동일하지 않습니다. 확인해주세요.")
                     .opacity(viewStore.confirmPassword.isEmpty ? 0 : 1)
                     .opacity(viewStore.isCorrect ? 0 : 1)
                     .foregroundColor(.red)

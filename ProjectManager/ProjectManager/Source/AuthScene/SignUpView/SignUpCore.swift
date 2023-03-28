@@ -31,6 +31,11 @@ struct SignUpCore: ReducerProtocol {
                 state.isValidEmail = validEmail(emailValue: email)
                 return .none
                 
+            case .binding(\.$password):
+                let password = state.password
+                state.isValidPassword = validPassword(passwordValue: password)
+                return .none
+                
             case .binding(\.$confirmPassword):
                 let password = state.password
                 let confirm = state.confirmPassword
@@ -52,7 +57,7 @@ struct SignUpCore: ReducerProtocol {
     }
     
     func validPassword(passwordValue: String) -> Bool {
-        let passwordRegEx = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,16}$"
+        let passwordRegEx = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,20}"
         
         let predicate = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         return predicate.evaluate(with: passwordValue)
