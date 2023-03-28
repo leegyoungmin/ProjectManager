@@ -42,6 +42,7 @@
 		187A145F2979BAD800311B7A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A145E2979BAD800311B7A /* Extension.swift */; };
 		18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D4029827B0F005D7B13 /* PersistenceController.swift */; };
 		18914D4229827C8A005D7B13 /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
+		18A92FFB29D2E8060067B365 /* DatabaseClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A92FFA29D2E8060067B365 /* DatabaseClients.swift */; };
 		18AB3C0C29796F0B00854929 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 18AB3C0B29796F0B00854929 /* ComposableArchitecture */; };
 		18AB3C2229799B6500854929 /* SheetStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2129799B6500854929 /* SheetStoreTest.swift */; };
 		18AB3C2B2979A87200854929 /* DetailStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2A2979A87200854929 /* DetailStoreTest.swift */; };
@@ -99,6 +100,7 @@
 		187A145C2979B7C300311B7A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		187A145E2979BAD800311B7A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		18914D4029827B0F005D7B13 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		18A92FFA29D2E8060067B365 /* DatabaseClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseClients.swift; sourceTree = "<group>"; };
 		18AB3C1F29799B6500854929 /* StoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AB3C2129799B6500854929 /* SheetStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetStoreTest.swift; sourceTree = "<group>"; };
 		18AB3C2A2979A87200854929 /* DetailStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreTest.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				183AFF4A29CC3D2C008108CB /* CoreDataClient.swift */,
 				18914D3F29827B03005D7B13 /* CoreDataManager */,
 				184D63EA29CEBDF000FD73D1 /* AuthClient.swift */,
+				18A92FFA29D2E8060067B365 /* DatabaseClients.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
 				184D640029CEC2FA00FD73D1 /* SignInView.swift in Sources */,
 				187A145D2979B7C300311B7A /* Date.swift in Sources */,
+				18A92FFB29D2E8060067B365 /* DatabaseClients.swift in Sources */,
 				18E6FC6E29D1640D008E9B6B /* AuthScene.swift in Sources */,
 				18914D4229827C8A005D7B13 /* Project.xcdatamodeld in Sources */,
 				1862A5E52983E0B000919209 /* BoardCore.swift in Sources */,

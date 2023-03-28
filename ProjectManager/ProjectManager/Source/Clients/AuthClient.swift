@@ -7,13 +7,10 @@
 import ComposableArchitecture
 import FirebaseAuth
 import FirebaseAuthCombineSwift
-import FirebaseDatabase
-import FirebaseDatabaseSwift
 
 struct AuthClient {
     var signIn: @Sendable (_ id: String, _ password: String) async throws -> User
     var signUp: @Sendable (_ email: String, _ password: String) async throws -> User
-    var createUserInfo: @Sendable (User) async throws -> DatabaseReference
 }
 
 extension DependencyValues {
@@ -43,18 +40,6 @@ extension AuthClient: DependencyKey {
         signUp: { email, password in
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             return result.user
-        },
-        createUserInfo: { user in
-            let dataBase = Database.database().reference().child("User")
-            let reference = try? await dataBase.child(user.uid.description).setValue([
-                "email": user.email
-            ])
-            
-            guard let reference = reference else {
-                throw AuthError.setDatabaseError
-            }
-            
-            return reference
         }
     )
 }
