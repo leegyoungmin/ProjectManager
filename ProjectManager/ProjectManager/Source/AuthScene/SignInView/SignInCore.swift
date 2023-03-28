@@ -57,6 +57,20 @@ struct SignInCore: ReducerProtocol {
             case ._signInWithEmailAndPassword:
                 return .none
 
+            case .signUpAction(._signUpResponse(.success)):
+                state.isPresentSignUpPage = false
+                guard let email = state.signUpState?.email,
+                      let password = state.signUpState?.password else {
+                    return .none
+                }
+                return .task { [email = email, password = password] in
+                    await ._signInWithEmailAndPassword(
+                        TaskResult {
+                            try await authClient.signIn(email, password)
+                        }
+                    )
+                }
+                
             case .signUpAction:
                 return .none
             }

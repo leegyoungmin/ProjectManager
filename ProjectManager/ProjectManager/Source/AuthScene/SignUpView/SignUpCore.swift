@@ -82,7 +82,7 @@ struct SignUpCore: ReducerProtocol {
             case ._signUpResponse(.failure):
                 return .none
                 
-            case ._setDatabaseResponse(let result):
+            case ._setDatabaseResponse:
                 return .none
             }
         }
