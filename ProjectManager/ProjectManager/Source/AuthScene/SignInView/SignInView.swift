@@ -11,27 +11,44 @@ struct SignInView: View {
     let store: StoreOf<SignInCore>
     
     var body: some View {
-        HStack {
-            Spacer()
-            
-            VStack(alignment: .center) {
+        WithViewStore(store) { viewStore in
+            HStack {
+                Spacer()
                 
-                titleSection
-                
-                emailSection
-                
-                passwordSection
-                
-                loginButton
-                
-                signUpSection
+                VStack(alignment: .center) {
+                    
+                    titleSection
+                    
+                    emailSection
+                    
+                    passwordSection
+                    
+                    loginButton
+                    
+                    signUpSection
+                    
+                    Spacer()
+                }
                 
                 Spacer()
             }
-            
-            Spacer()
+            .background(LinearGradient(colors: [Color("DarkAccent"), Color.accentColor], startPoint: .top, endPoint: .bottom))
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isPresentSignUpPage,
+                    send: SignInCore.Action._presentSignUpPage(false)
+                )
+            ) {
+                IfLetStore(
+                    store.scope(
+                        state: \.signUpState,
+                        action: SignInCore.Action.signUpAction
+                    )
+                ) { store in
+                    SignUpView(store: store)
+                }
+            }
         }
-        .background(LinearGradient(colors: [Color("DarkAccent"), Color.accentColor], startPoint: .top, endPoint: .bottom))
     }
 }
 
@@ -114,7 +131,7 @@ private extension SignInView {
                     .foregroundColor(.white)
                 
                 Button {
-                    ViewStore(store).send(.signUp)
+                    ViewStore(store).send(._presentSignUpPage(true))
                 } label: {
                     Text("회원 가입하기")
                         .bold()

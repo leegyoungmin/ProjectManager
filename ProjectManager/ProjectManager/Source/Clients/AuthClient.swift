@@ -39,7 +39,8 @@ extension AuthClient: DependencyKey {
         },
         signUp: { email, password in
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            return result.user
+            let signInResult = try await Auth.auth().signIn(withEmail: email, password: password)
+            return signInResult.user
         }
     )
 }

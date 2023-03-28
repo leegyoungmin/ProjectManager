@@ -11,17 +11,21 @@ struct SignInCore: ReducerProtocol {
     struct State: Equatable {
         @BindingState var email: String = ""
         @BindingState var password: String = ""
+        var isPresentSignUpPage: Bool = false
+        var signUpState: SignUpCore.State?
     }
     
     enum Action: BindableAction, Equatable {
         // User Action
         case login
         case signUp
+        case binding(BindingAction<State>)
         
         // Inner Action
+        case _presentSignUpPage(Bool)
         case _signInWithEmailAndPassword(TaskResult<User>)
         
-        case binding(BindingAction<State>)
+        case signUpAction(SignUpCore.Action)
     }
     
     @Dependency(\.authClient) var authClient
@@ -42,12 +46,23 @@ struct SignInCore: ReducerProtocol {
             case .signUp:
                 return .none
                 
-            case ._signInWithEmailAndPassword:
-                return .none
-                
             case .binding:
                 return .none
+                
+            case ._presentSignUpPage(let isPresent):
+                state.signUpState = SignUpCore.State()
+                state.isPresentSignUpPage = isPresent
+                return .none
+                
+            case ._signInWithEmailAndPassword:
+                return .none
+
+            case .signUpAction:
+                return .none
             }
+        }
+        .ifLet(\.signUpState, action: /Action.signUpAction) {
+            SignUpCore()
         }
     }
 }
