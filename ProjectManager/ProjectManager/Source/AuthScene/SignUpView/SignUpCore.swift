@@ -68,12 +68,12 @@ struct SignUpCore: ReducerProtocol {
                     )
                 }
                 
-            case let ._signUpResponse(.success(user)):
+            case ._signUpResponse(.success):
                 state.isLoading = false
-                return .task { [user = user] in
+                return .task {
                     await ._setAuthDatabaseResponse(
                         TaskResult {
-                            try await databaseClient.setAuthValues(user)
+                            try await databaseClient.setAuthValues()
                         }
                     )
                 }

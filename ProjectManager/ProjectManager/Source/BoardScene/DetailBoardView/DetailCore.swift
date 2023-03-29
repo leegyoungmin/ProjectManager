@@ -37,12 +37,14 @@ struct DetailProjectCore: ReducerProtocol {
         // Inner Action
         case _editModeToActive
         case _editModeToInactive
-        case _saveProjectResponse(TaskResult<Bool>)
+        case _saveProjectResponse(TaskResult<Project>)
+        case _saveProjectStoreResponse(TaskResult<Bool>)
         
         // Binding Action
         case binding(BindingAction<State>)
     }
     
+    @Dependency(\.databaseClient) var dataBaseClient
     @Dependency(\.coreDataClient) var coreDataClient
     
     var body: some ReducerProtocol<State, Action> {
@@ -84,7 +86,19 @@ struct DetailProjectCore: ReducerProtocol {
                 state.editMode = .inactive
                 return .none
                 
+            case let ._saveProjectResponse(.success(project)):
+                return .task { [project = project] in
+                    await ._saveProjectStoreResponse(
+                        TaskResult {
+                            try await dataBaseClient.setProjectValue(project)
+                        }
+                    )
+                }
+                
             case ._saveProjectResponse:
+                return .none
+                
+            case ._saveProjectStoreResponse:
                 return .none
                 
             case .binding:

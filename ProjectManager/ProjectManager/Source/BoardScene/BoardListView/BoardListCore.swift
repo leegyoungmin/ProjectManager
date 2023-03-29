@@ -26,7 +26,7 @@ struct BoardListCore: ReducerProtocol {
         case appendProject(Project)
         
         case _assignLoadResponse(TaskResult<[Assignment]>)
-        case _saveAssignResponse(TaskResult<Bool>)
+        case _saveAssignResponse(TaskResult<Project>)
         case _deleteAssignResponse(TaskResult<Bool>)
     }
     

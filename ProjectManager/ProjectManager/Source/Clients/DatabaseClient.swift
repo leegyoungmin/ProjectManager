@@ -10,7 +10,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct DatabaseClient {
-    var setAuthValues: @Sendable (User) async throws -> Bool
+    var setAuthValues: @Sendable () async throws -> Bool
+    var setProjectValue: @Sendable (Project) async throws -> Bool
 }
 
 extension DatabaseClient {
@@ -29,8 +30,11 @@ extension DependencyValues {
 
 extension DatabaseClient: DependencyKey {
     static var liveValue = DatabaseClient(
-        setAuthValues: { user in
-            guard let email = user.email else { throw DatabaseError.invalidUser }
+        setAuthValues: {
+            guard let user = Auth.auth().currentUser,
+                  let email = user.email else {
+                throw DatabaseError.invalidUser
+            }
             
             let store = Firestore.firestore()
             var document = store.collection("Users").document(user.uid)
@@ -38,6 +42,24 @@ extension DatabaseClient: DependencyKey {
             guard let result = try? document.setData(from: userInformation) else {
                 throw DatabaseError.setValueError
             }
+            
+            return true
+        },
+        setProjectValue: { project in
+            guard let currentUser = Auth.auth().currentUser else {
+                throw DatabaseError.invalidUser
+            }
+            let store = Firestore.firestore()
+            let authDocument = store.collection("Users").document(currentUser.uid)
+            let document = store.collection("Projects").document(project.id.uuidString)
+            
+            guard let result = try? document.setData(from: project) else {
+                throw DatabaseError.setValueError
+            }
+            
+            authDocument.updateData([
+                "projectIds": FieldValue.arrayUnion([project.id.uuidString])
+            ])
             
             return true
         }
