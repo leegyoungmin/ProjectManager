@@ -8,7 +8,9 @@ import ComposableArchitecture
 import SwiftUI
 
 struct SignUpView: View {
+    @Environment(\.dismiss) var dismiss
     let store: StoreOf<SignUpCore>
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -46,6 +48,18 @@ struct SignUpView: View {
                 .padding(30)
                 .navigationTitle("회원 가입")
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .rotationEffect(.degrees(45))
+                                .scaleEffect(1.5)
+                        }
+
+                    }
+                }
             }
             
         }

@@ -46,6 +46,7 @@ struct SignInView: View {
                     )
                 ) { store in
                     SignUpView(store: store)
+                        .interactiveDismissDisabled()
                 }
             }
         }
