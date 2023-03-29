@@ -71,7 +71,7 @@ struct SignUpCore: ReducerProtocol {
                 return .task { [user = user] in
                     await ._setDatabaseResponse(
                         TaskResult {
-                            try await databaseClient.uploadData(
+                            try await databaseClient.setValues(
                                 ["User", "\(user.uid)"],
                                 ["email": user.email as Any]
                             )

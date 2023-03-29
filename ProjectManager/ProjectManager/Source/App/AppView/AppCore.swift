@@ -25,6 +25,7 @@ struct AppCore: ReducerProtocol {
             switch action {
             case .authAction(.signInAction(._signInWithEmailAndPassword(.success(let user)))):
                 state.user = user
+                state.boardSceneState?.user = user
                 state.boardSceneState = BoardSceneCore.State()
                 return .none
                 

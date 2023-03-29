@@ -9,7 +9,7 @@ import FirebaseDatabase
 import FirebaseDatabaseSwift
 
 struct DatabaseClient {
-    var uploadData: @Sendable ([String], Dictionary<String, Any>) async throws -> DatabaseReference
+    var setValues: @Sendable ([String], Dictionary<String, Any>) async throws -> DatabaseReference
 }
 
 extension DatabaseClient {
@@ -27,7 +27,7 @@ extension DependencyValues {
 
 extension DatabaseClient: DependencyKey {
     static var liveValue = DatabaseClient(
-        uploadData: { keys, values in
+        setValues: { keys, values in
             var reference = Database.database().reference()
             keys.forEach {
                 reference = reference.child($0)
