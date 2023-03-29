@@ -12,32 +12,42 @@ struct SignUpView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 30) {
-                    Spacer()
-                    
-                    UserInformationSection(title: "이메일") {
-                        emailSection
+                ZStack {
+                    WithViewStore(store.scope(state: \.isLoading)) { viewStore in
+                        VStack(spacing: 30) {
+                            Spacer()
+                            
+                            UserInformationSection(title: "이메일") {
+                                emailSection
+                            }
+                            
+                            UserInformationSection(title: "비밀번호") {
+                                passwordSection
+                            }
+                            
+                            UserInformationSection(title: "비밀번호 확인") {
+                                confirmPasswordSection
+                            }
+                            
+                            Spacer()
+                            
+                            signUpButton
+                            
+                            Spacer()
+                        }
+                        .disabled(viewStore.state)
+                        
+                        
+                        if viewStore.state {
+                            ProgressView()
+                        }
                     }
-                    
-                    UserInformationSection(title: "비밀번호") {
-                        passwordSection
-                    }
-                    
-                    UserInformationSection(title: "비밀번호 확인") {
-                        confirmPasswordSection
-                    }
-                    
-                    Spacer()
-                    
-                    signUpButton
-
-                    Spacer()
                 }
                 .padding(30)
                 .navigationTitle("회원 가입")
                 .navigationBarTitleDisplayMode(.inline)
             }
-           
+            
         }
         .navigationViewStyle(.stack)
     }

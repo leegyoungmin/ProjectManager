@@ -17,6 +17,8 @@ struct SignUpCore: ReducerProtocol {
         var isValidEmail: Bool = false
         var isValidPassword: Bool = false
         var isCorrect: Bool = false
+        
+        var isLoading: Bool = false
     }
     
     enum Action: BindableAction, Equatable {
@@ -57,6 +59,7 @@ struct SignUpCore: ReducerProtocol {
                 return .none
                 
             case .signUp:
+                state.isLoading = true
                 return .task { [email = state.email, password = state.password] in
                     await ._signUpResponse(
                         TaskResult {
@@ -66,6 +69,7 @@ struct SignUpCore: ReducerProtocol {
                 }
                 
             case let ._signUpResponse(.success(user)):
+                state.isLoading = false
                 return .task { [user = user] in
                     await ._setAuthDatabaseResponse(
                         TaskResult {
@@ -75,6 +79,7 @@ struct SignUpCore: ReducerProtocol {
                 }
                 
             case ._signUpResponse(.failure):
+                state.isLoading = false
                 return .none
                 
             case ._setAuthDatabaseResponse:
