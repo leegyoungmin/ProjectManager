@@ -19,17 +19,9 @@ struct SignUpView: View {
                         VStack(spacing: 30) {
                             Spacer()
                             
-                            UserInformationSection(title: "이메일") {
-                                emailSection
-                            }
-                            
-                            UserInformationSection(title: "비밀번호") {
-                                passwordSection
-                            }
-                            
-                            UserInformationSection(title: "비밀번호 확인") {
-                                confirmPasswordSection
-                            }
+                            emailSection
+                            passwordSection
+                            confirmPasswordSection
                             
                             Spacer()
                             
@@ -75,84 +67,92 @@ extension SignUpView {
         var body: some View {
             VStack(alignment: .leading) {
                 Text(title)
-                    .font(.system(size: 40).bold())
+                    .font(.system(size: 30, weight: .black))
                 
                 content()
             }
         }
     }
     
+    struct UserInformationInputModifier: ViewModifier {
+        var contentType: UITextContentType
+        
+        func body(content: Content) -> some View {
+            content
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .textContentType(contentType)
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .strokeBorder(Color.accentColor)
+                }
+        }
+    }
+    
     var emailSection: some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .leading) {
-                TextField("", text: viewStore.binding(\.$email))
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .textContentType(.emailAddress)
-                    .placeholder(when: viewStore.email.isEmpty) {
-                        Text(Constants.emailFieldPlaceholder)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
-                    .background {
-                        RoundedRectangle(cornerRadius: .infinity)
-                            .strokeBorder(Color.accentColor)
-                    }
-                
-                // TODO: - Valid Text 생성
-                Text(viewStore.isValidEmail ? "" : Constants.inValidEmailDescription)
-                    .opacity(viewStore.email.isEmpty ? 0 : 1)
-                    .opacity(viewStore.isValidEmail ? 0 : 1)
-                    .foregroundColor(.red)
-                    .padding(.horizontal)
+            UserInformationSection(title: "이메일") {
+                VStack(alignment: .leading) {
+                    TextField("", text: viewStore.binding(\.$email))
+                        .placeholder(when: viewStore.email.isEmpty) {
+                            Text(Constants.emailFieldPlaceholder)
+                                .foregroundColor(.gray)
+                        }
+                        .modifier(UserInformationInputModifier(contentType: .emailAddress))
+                    
+                    // TODO: - Valid Text 생성
+                    Text(viewStore.isValidEmail ? "" : Constants.inValidEmailDescription)
+                        .opacity(viewStore.email.isEmpty ? 0 : 1)
+                        .opacity(viewStore.isValidEmail ? 0 : 1)
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
+                }
             }
         }
     }
     
     var passwordSection: some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .leading) {
-                SecureField("", text: viewStore.binding(\.$password))
-                    .placeholder(when: viewStore.password.isEmpty) {
-                        Text(Constants.passwordFieldPlaceholder)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
-                    .background {
-                        RoundedRectangle(cornerRadius: .infinity)
-                            .strokeBorder(Color.accentColor)
-                    }
-                
-                // TODO: - Valid Password Text
-                Text(viewStore.isValidPassword ? "" : Constants.inValidPasswordDescription)
-                    .opacity(viewStore.password.isEmpty ? 0 : 1)
-                    .opacity(viewStore.isValidPassword ? 0 : 1)
-                    .foregroundColor(.red)
-                    .padding(.horizontal)
+            UserInformationSection(title: "비밀번호") {
+                VStack(alignment: .leading) {
+                    SecureField("", text: viewStore.binding(\.$password))
+                        .placeholder(when: viewStore.password.isEmpty) {
+                            Text(Constants.passwordFieldPlaceholder)
+                                .foregroundColor(.gray)
+                        }
+                        .modifier(UserInformationInputModifier(contentType: .password))
+                        
+                    
+                    // TODO: - Valid Password Text
+                    Text(viewStore.isValidPassword ? "" : Constants.inValidPasswordDescription)
+                        .opacity(viewStore.password.isEmpty ? 0 : 1)
+                        .opacity(viewStore.isValidPassword ? 0 : 1)
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
+                }
             }
         }
     }
     
     var confirmPasswordSection: some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .leading) {
-                SecureField("", text: viewStore.binding(\.$confirmPassword))
-                    .placeholder(when: viewStore.confirmPassword.isEmpty) {
-                        Text(Constants.passwordConfirmFieldPlaceholder)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
-                    .background {
-                        RoundedRectangle(cornerRadius: .infinity)
-                            .strokeBorder(Color.accentColor)
-                    }
-                
-                // TODO: - 비밀번호 Validation Text 생성
-                Text(viewStore.isCorrect ? "" : Constants.inValidPasswordConfirmDescription)
-                    .opacity(viewStore.confirmPassword.isEmpty ? 0 : 1)
-                    .opacity(viewStore.isCorrect ? 0 : 1)
-                    .foregroundColor(.red)
-                    .padding(.horizontal)
+            UserInformationSection(title: "비밀번호 확인") {
+                VStack(alignment: .leading) {
+                    SecureField("", text: viewStore.binding(\.$confirmPassword))
+                        .placeholder(when: viewStore.confirmPassword.isEmpty) {
+                            Text(Constants.passwordConfirmFieldPlaceholder)
+                                .foregroundColor(.gray)
+                        }
+                        .modifier(UserInformationInputModifier(contentType: .password))
+                    
+                    // TODO: - 비밀번호 Validation Text 생성
+                    Text(viewStore.isCorrect ? "" : Constants.inValidPasswordConfirmDescription)
+                        .opacity(viewStore.confirmPassword.isEmpty ? 0 : 1)
+                        .opacity(viewStore.isCorrect ? 0 : 1)
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
+                }
             }
         }
     }
