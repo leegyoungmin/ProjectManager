@@ -5,15 +5,17 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import ComposableArchitecture
-import FirebaseDatabase
-import FirebaseDatabaseSwift
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct DatabaseClient {
-    var setValues: @Sendable ([String], Dictionary<String, Any>) async throws -> DatabaseReference
+    var setAuthValues: @Sendable (User) async throws -> Bool
 }
 
 extension DatabaseClient {
     enum DatabaseError: Error {
+        case invalidUser
         case setValueError
     }
 }
@@ -27,17 +29,18 @@ extension DependencyValues {
 
 extension DatabaseClient: DependencyKey {
     static var liveValue = DatabaseClient(
-        setValues: { keys, values in
-            var reference = Database.database().reference()
-            keys.forEach {
-                reference = reference.child($0)
+        setAuthValues: { user in
+            guard let email = user.email else { throw DatabaseError.invalidUser }
+            
+            let store = Firestore.firestore()
+            var document = store.collection("Users").document(user.uid)
+            let userInformation = UserInformation(userId: user.uid, email: email)
+            guard let result = try? document.setData(from: userInformation) else {
+                throw DatabaseError.setValueError
             }
             
-            let ref = try? await reference.setValue(values)
+            return true
             
-            guard let ref = ref else { throw DatabaseError.setValueError }
-            
-            return ref
         }
     )
 }

@@ -6,7 +6,6 @@
 
 import ComposableArchitecture
 import FirebaseAuth
-import FirebaseAuthCombineSwift
 
 struct AuthClient {
     var signIn: @Sendable (_ id: String, _ password: String) async throws -> User
