@@ -9,5 +9,5 @@ import FirebaseAuth
 struct UserInformation: Codable {
     let userId: String
     let email: String
-    let projectIds: [String] = []
+    var projectIds: [String] = []
 }

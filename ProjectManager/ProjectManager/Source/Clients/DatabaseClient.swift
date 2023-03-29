@@ -40,7 +40,6 @@ extension DatabaseClient: DependencyKey {
             }
             
             return true
-            
         }
     )
 }
