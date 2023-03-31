@@ -19,6 +19,7 @@ struct BoardListCore: ReducerProtocol {
         }
     }
     
+    @Dependency(\.databaseClient) var databaseClient
     @Dependency(\.coreDataClient) var coreDataClient
     
     enum Action: Equatable {
@@ -29,6 +30,9 @@ struct BoardListCore: ReducerProtocol {
         case _assignLoadResponse(TaskResult<[Assignment]>)
         case _saveAssignResponse(TaskResult<Project>)
         case _deleteAssignResponse(TaskResult<Bool>)
+        
+        case _saveProjectStoreResponse(TaskResult<Bool>)
+        case _deleteProjectStoreResponse(TaskResult<Bool>)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -49,6 +53,20 @@ struct BoardListCore: ReducerProtocol {
                 newProject.state = state.projectState
                 
                 return .concatenate(
+                    .task { [newProject = newProject] in
+                        await ._saveProjectStoreResponse(
+                            TaskResult {
+                                try await databaseClient.setProjectValue(newProject)
+                            }
+                        )
+                    },
+                    .task { [project = project] in
+                        await ._deleteProjectStoreResponse(
+                            TaskResult {
+                                try await databaseClient.deleteProjectValue(project)
+                            }
+                        )
+                    },
                     .task { [newProject = newProject] in
                         await ._saveAssignResponse(
                             TaskResult {
@@ -88,6 +106,8 @@ struct BoardListCore: ReducerProtocol {
                 
             case ._saveAssignResponse(.failure):
                 return .none
+                
+                
                 
             default:
                 return .none

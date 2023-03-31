@@ -12,12 +12,14 @@ import FirebaseFirestoreSwift
 struct DatabaseClient {
     var setAuthValues: @Sendable () async throws -> Bool
     var setProjectValue: @Sendable (Project) async throws -> Bool
+    var deleteProjectValue: @Sendable (Project) async throws -> Bool
 }
 
 extension DatabaseClient {
     enum DatabaseError: Error {
         case invalidUser
         case setValueError
+        case deleteValueError
     }
 }
 
@@ -59,6 +61,23 @@ extension DatabaseClient: DependencyKey {
             
             authDocument.updateData([
                 "projectIds": FieldValue.arrayUnion([project.id.uuidString])
+            ])
+            
+            return true
+        },
+        deleteProjectValue: { project in
+            guard let currentUser = Auth.auth().currentUser else {
+                throw DatabaseError.invalidUser
+            }
+            
+            let store = Firestore.firestore()
+            let authDocument = store.collection("Users").document(currentUser.uid)
+            let document = store.collection("Projects").document(project.id.uuidString)
+            
+            document.delete()
+            
+            authDocument.updateData([
+                "projectIds": FieldValue.arrayRemove([project.id.uuidString])
             ])
             
             return true
