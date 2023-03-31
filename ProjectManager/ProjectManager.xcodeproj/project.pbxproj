@@ -38,6 +38,7 @@
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
 		1862A5E52983E0B000919209 /* BoardCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1862A5E42983E0B000919209 /* BoardCore.swift */; };
 		1862A5E72983E1A600919209 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1862A5E62983E1A600919209 /* BoardView.swift */; };
+		186D183129D6A63E0005F7F8 /* ProjectProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186D183029D6A63E0005F7F8 /* ProjectProvider.swift */; };
 		187A145D2979B7C300311B7A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A145C2979B7C300311B7A /* Date.swift */; };
 		187A145F2979BAD800311B7A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A145E2979BAD800311B7A /* Extension.swift */; };
 		18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18914D4029827B0F005D7B13 /* PersistenceController.swift */; };
@@ -98,6 +99,7 @@
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1862A5E42983E0B000919209 /* BoardCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCore.swift; sourceTree = "<group>"; };
 		1862A5E62983E1A600919209 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		186D183029D6A63E0005F7F8 /* ProjectProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectProvider.swift; sourceTree = "<group>"; };
 		187A145C2979B7C300311B7A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		187A145E2979BAD800311B7A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		18914D4029827B0F005D7B13 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -201,12 +203,21 @@
 		183AFF4929CC3D24008108CB /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				186D182F29D6A6310005F7F8 /* Provider */,
 				183AFF4A29CC3D2C008108CB /* CoreDataClient.swift */,
 				18914D3F29827B03005D7B13 /* CoreDataManager */,
 				184D63EA29CEBDF000FD73D1 /* AuthClient.swift */,
 				18A92FFA29D2E8060067B365 /* DatabaseClient.swift */,
 			);
 			path = Clients;
+			sourceTree = "<group>";
+		};
+		186D182F29D6A6310005F7F8 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				186D183029D6A63E0005F7F8 /* ProjectProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		18914D3F29827B03005D7B13 /* CoreDataManager */ = {
@@ -487,6 +498,7 @@
 				18186AC729703A6500E0B695 /* Color.swift in Sources */,
 				183AFF4B29CC3D2C008108CB /* CoreDataClient.swift in Sources */,
 				180263CA29D43BB700EEDA7A /* User.swift in Sources */,
+				186D183129D6A63E0005F7F8 /* ProjectProvider.swift in Sources */,
 				183800752981640100396190 /* BoardListView.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				18914D4129827B0F005D7B13 /* PersistenceController.swift in Sources */,

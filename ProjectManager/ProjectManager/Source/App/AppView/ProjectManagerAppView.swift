@@ -12,13 +12,19 @@ struct ProjectManagerAppView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            if viewStore.user == nil {
-                AuthScene(
-                    store: store.scope(
-                        state: \.authState,
-                        action: AppCore.Action.authAction
+            VStack(spacing: .zero) {
+                NoNetworkView()
+                    .environmentObject(NetworkMonitor.shared)
+                    .background(Color.secondaryBackground)
+                
+                if viewStore.user == nil {
+                    AuthScene(
+                        store: store.scope(
+                            state: \.authState,
+                            action: AppCore.Action.authAction
+                        )
                     )
-                )
+                }
             }
             
             IfLetStore(
@@ -28,6 +34,22 @@ struct ProjectManagerAppView: View {
                 )
             ) { store in
                 BoardScene(store: store)
+            }
+        }
+    }
+}
+
+extension ProjectManagerAppView {
+    struct NoNetworkView: View {
+        @EnvironmentObject var monitor: NetworkMonitor
+        var body: some View {
+            if monitor.isConnected == false {
+                HStack {
+                    Spacer()
+                    Label("네트워크 연결이 끊겼습니다. 확인해주세요.", image: "wifi.slash")
+                    Spacer()
+                }
+                .padding(.bottom)
             }
         }
     }

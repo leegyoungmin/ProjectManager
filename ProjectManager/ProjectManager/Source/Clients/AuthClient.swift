@@ -29,10 +29,7 @@ extension AuthClient: DependencyKey {
     static let liveValue = AuthClient(
         signIn: { email, password in
             let result = try? await Auth.auth().signIn(withEmail: email, password: password)
-            
-            guard let result = result else {
-                throw AuthError.loginError
-            }
+            guard let result = result else { throw AuthError.loginError }
             
             return result.user
         },
