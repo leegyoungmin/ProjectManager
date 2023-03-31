@@ -31,8 +31,8 @@ struct BoardListView: View {
                             }
                         }
                     }
-                    .onDelete {
-                        print($0)
+                    .onDelete { index in
+                        viewStore.send(.deleteProject(index))
                     }
                     .listRowSeparator(.hidden)
                 }

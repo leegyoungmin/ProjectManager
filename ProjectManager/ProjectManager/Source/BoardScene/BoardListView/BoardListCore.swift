@@ -24,6 +24,7 @@ struct BoardListCore: ReducerProtocol {
     enum Action: Equatable {
         case onAppear
         case appendProject(Project)
+        case deleteProject(IndexSet)
         
         case _assignLoadResponse(TaskResult<[Assignment]>)
         case _saveAssignResponse(TaskResult<Project>)
@@ -63,6 +64,17 @@ struct BoardListCore: ReducerProtocol {
                         )
                     }
                 ).animation()
+                
+            case let .deleteProject(index):
+                guard let firstIndex = index.first else { return .none }
+                let project = state.projects[firstIndex]
+                return .task {
+                    await ._deleteAssignResponse(
+                        TaskResult {
+                            try await coreDataClient.deleteAssignment(project)
+                        }
+                    )
+                }
                 
             case let ._assignLoadResponse(.success(assignments)):
                 state.projects = assignments.map { $0.convertProject() }
