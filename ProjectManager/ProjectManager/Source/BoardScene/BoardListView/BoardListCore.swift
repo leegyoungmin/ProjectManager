@@ -23,9 +23,14 @@ struct BoardListCore: ReducerProtocol {
     @Dependency(\.coreDataClient) var coreDataClient
     
     enum Action: Equatable {
+        // User Action
         case onAppear
         case appendProject(Project)
         case deleteProject(IndexSet)
+        
+        // Inner Action
+        case _saveProject(Project)
+        case _deleteProject(Project)
         
         case _assignLoadResponse(TaskResult<[Assignment]>)
         case _saveAssignResponse(TaskResult<Project>)
@@ -53,24 +58,43 @@ struct BoardListCore: ReducerProtocol {
                 newProject.state = state.projectState
                 
                 return .concatenate(
-                    .task { [newProject = newProject] in
+                    .run { [newProject = newProject] in
+                        await $0.send(._saveProject(newProject))
+                    },
+                    .run { await $0.send(._deleteProject(project))}
+                )
+                
+            case let .deleteProject(index):
+                guard let firstIndex = index.first else { return .none }
+                let project = state.projects[firstIndex]
+                return .task {
+                    ._deleteProject(project)
+                }
+                
+            case let ._saveProject(project):
+                return .concatenate(
+                    .task { [project = project] in
                         await ._saveProjectStoreResponse(
                             TaskResult {
-                                try await databaseClient.setProjectValue(newProject)
+                                try await databaseClient.setProjectValue(project)
                             }
                         )
                     },
                     .task { [project = project] in
+                        await ._saveAssignResponse(
+                            TaskResult {
+                                try await coreDataClient.addAssignment(project)
+                            }
+                        )
+                    }
+                )
+                
+            case let ._deleteProject(project):
+                return .concatenate(
+                    .task { [project = project] in
                         await ._deleteProjectStoreResponse(
                             TaskResult {
                                 try await databaseClient.deleteProjectValue(project)
-                            }
-                        )
-                    },
-                    .task { [newProject = newProject] in
-                        await ._saveAssignResponse(
-                            TaskResult {
-                                try await coreDataClient.addAssignment(newProject)
                             }
                         )
                     },
@@ -81,18 +105,7 @@ struct BoardListCore: ReducerProtocol {
                             }
                         )
                     }
-                ).animation()
-                
-            case let .deleteProject(index):
-                guard let firstIndex = index.first else { return .none }
-                let project = state.projects[firstIndex]
-                return .task {
-                    await ._deleteAssignResponse(
-                        TaskResult {
-                            try await coreDataClient.deleteAssignment(project)
-                        }
-                    )
-                }
+                )
                 
             case let ._assignLoadResponse(.success(assignments)):
                 state.projects = assignments.map { $0.convertProject() }
@@ -106,8 +119,6 @@ struct BoardListCore: ReducerProtocol {
                 
             case ._saveAssignResponse(.failure):
                 return .none
-                
-                
                 
             default:
                 return .none
