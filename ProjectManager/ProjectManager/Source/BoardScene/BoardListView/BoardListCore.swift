@@ -33,6 +33,8 @@ struct BoardListCore: ReducerProtocol {
         case _deleteProject(Project)
         
         case _assignLoadResponse(TaskResult<[Assignment]>)
+        case _projectLoadResponse(TaskResult<[Project]>)
+        
         case _saveAssignResponse(TaskResult<Project>)
         case _deleteAssignResponse(TaskResult<Bool>)
         
@@ -44,13 +46,13 @@ struct BoardListCore: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .task { [status = state.projectState] in
-                    await ._assignLoadResponse(
+                return .task { [state = state.projectState] in
+                    await ._projectLoadResponse(
                         TaskResult {
-                            try await coreDataClient.loadAssignments(status)
+                            try await databaseClient.fetchProjectValues(state)
                         }
                     )
-                }.animation()
+                }
                 
             case .appendProject(let project):
                 var newProject = project
@@ -118,6 +120,13 @@ struct BoardListCore: ReducerProtocol {
                 return .run { await $0.send(.onAppear) }
                 
             case ._saveAssignResponse(.failure):
+                return .none
+                
+            case let ._projectLoadResponse(.success(projects)):
+                state.projects = projects
+                return .none
+                
+            case ._projectLoadResponse:
                 return .none
                 
             default:

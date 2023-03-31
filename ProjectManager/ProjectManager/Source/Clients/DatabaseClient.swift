@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 struct DatabaseClient {
     var setAuthValues: @Sendable () async throws -> Bool
     var setProjectValue: @Sendable (Project) async throws -> Bool
+    var fetchProjectValues: @Sendable (ProjectState) async throws -> [Project]
     var deleteProjectValue: @Sendable (Project) async throws -> Bool
 }
 
@@ -64,6 +65,28 @@ extension DatabaseClient: DependencyKey {
             ])
             
             return true
+        },
+        fetchProjectValues: { state in
+            guard let currentUser = Auth.auth().currentUser else {
+                throw DatabaseError.invalidUser
+            }
+            
+            let store = Firestore.firestore()
+            let authDocument = store.collection("Users").document(currentUser.uid)
+            
+            guard let projectIds = try? await authDocument.getDocument(as: UserInformation.self).projectIds else {
+                return []
+            }
+            
+            let document = store.collection("Projects")
+            var projects = [Project]()
+            for id in projectIds {
+                if let project = try? await document.document(id).getDocument(as: Project.self), project.state == state {
+                    projects.append(project)
+                }
+            }
+            
+            return projects
         },
         deleteProjectValue: { project in
             guard let currentUser = Auth.auth().currentUser else {
