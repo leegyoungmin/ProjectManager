@@ -14,7 +14,7 @@ struct ProjectManagerAppView: View {
         WithViewStore(store) { viewStore in
             VStack(spacing: .zero) {
                 NoNetworkView()
-                    .environmentObject(NetworkMonitor.shared)
+                    .environmentObject(NetworkManager.shared)
                     .background(Color.secondaryBackground)
                 
                 if viewStore.user == nil {
@@ -26,7 +26,7 @@ struct ProjectManagerAppView: View {
                     )
                 }
             }
-            
+//            BoardScene(store: store.scope(state: \.boardSceneState, action: AppCore.Action.boardSceneAction))
             IfLetStore(
                 store.scope(
                     state: \.boardSceneState,
@@ -41,7 +41,7 @@ struct ProjectManagerAppView: View {
 
 extension ProjectManagerAppView {
     struct NoNetworkView: View {
-        @EnvironmentObject var monitor: NetworkMonitor
+        @EnvironmentObject var monitor: NetworkManager
         var body: some View {
             if monitor.isConnected == false {
                 HStack {

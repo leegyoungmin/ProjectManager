@@ -37,15 +37,13 @@ struct DetailProjectCore: ReducerProtocol {
         // Inner Action
         case _editModeToActive
         case _editModeToInactive
-        case _saveProjectResponse(TaskResult<Project>)
-        case _saveProjectStoreResponse(TaskResult<Bool>)
+        case _saveProjectResponse(TaskResult<Bool>)
         
         // Binding Action
         case binding(BindingAction<State>)
     }
     
-    @Dependency(\.databaseClient) var dataBaseClient
-    @Dependency(\.coreDataClient) var coreDataClient
+    @Dependency(\.projectsClient) var projectsClient
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
@@ -69,15 +67,13 @@ struct DetailProjectCore: ReducerProtocol {
                     description: state.body,
                     state: state.projectState
                 )
-                
                 return .task {
                     await ._saveProjectResponse(
                         TaskResult {
-                            try await coreDataClient.addAssignment(project)
+                            try await projectsClient.saveProject(project)
                         }
                     )
                 }
-                
             case ._editModeToActive:
                 state.editMode = .active
                 return .none
@@ -86,19 +82,10 @@ struct DetailProjectCore: ReducerProtocol {
                 state.editMode = .inactive
                 return .none
                 
-            case let ._saveProjectResponse(.success(project)):
-                return .task { [project = project] in
-                    await ._saveProjectStoreResponse(
-                        TaskResult {
-                            try await dataBaseClient.setProjectValue(project)
-                        }
-                    )
-                }
-                
-            case ._saveProjectResponse:
+            case ._saveProjectResponse(.success):
                 return .none
                 
-            case ._saveProjectStoreResponse:
+            case ._saveProjectResponse:
                 return .none
                 
             case .binding:

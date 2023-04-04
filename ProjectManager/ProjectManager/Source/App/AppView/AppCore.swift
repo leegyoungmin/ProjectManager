@@ -37,6 +37,10 @@ struct AppCore: ReducerProtocol {
             BoardSceneCore()
         }
         
+//        Scope(state: \.boardSceneState, action: /Action.boardSceneAction) {
+//            BoardSceneCore()
+//        }
+        
         Scope(state: \.authState, action: /Action.authAction) {
             AuthCore()
         }

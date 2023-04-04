@@ -32,7 +32,6 @@ struct SignUpCore: ReducerProtocol {
     }
     
     @Dependency(\.authClient) var authClient
-    @Dependency(\.databaseClient) var databaseClient
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
@@ -73,7 +72,7 @@ struct SignUpCore: ReducerProtocol {
                 return .task {
                     await ._setAuthDatabaseResponse(
                         TaskResult {
-                            try await databaseClient.setAuthValues()
+                            try await authClient.saveUserInformation()
                         }
                     )
                 }
