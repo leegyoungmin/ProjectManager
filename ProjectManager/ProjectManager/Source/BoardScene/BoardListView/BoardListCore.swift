@@ -99,8 +99,7 @@ struct BoardListCore: ReducerProtocol {
                 }
                 
             case ._dismissDetail:
-                state.selectedProject = nil
-                return .none
+                return .run { await $0.send(.onAppear) }
                 
             case let ._projectLoadResponse(.success(projects)):
                 state.projects = projects
@@ -111,10 +110,17 @@ struct BoardListCore: ReducerProtocol {
                 
             case ._deleteProjectResponse(.success):
                 return .run { await $0.send(.onAppear) }
+            
+            case .detailCoreAction(._saveProjectResponse(.success)):
+                state.selectedProject = nil
+                return .none
                 
             default:
                 return .none
             }
+        }
+        .ifLet(\.selectedProject, action: /Action.detailCoreAction) {
+            DetailProjectCore()
         }
     }
 }

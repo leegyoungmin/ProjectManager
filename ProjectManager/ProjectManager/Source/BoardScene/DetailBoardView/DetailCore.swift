@@ -14,7 +14,7 @@ struct DetailProjectCore: ReducerProtocol {
         @BindingState var title: String = ""
         @BindingState var body: String = ""
         @BindingState var deadLineDate: Date = Date()
-        var projectState: ProjectState = .todo
+        @BindingState var projectState: ProjectState = .todo
         var editMode: EditMode = .active
         
         init(project: Project? = nil) {
@@ -50,14 +50,10 @@ struct DetailProjectCore: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .tapEditButton(true):
-                return .task {
-                    ._editModeToActive
-                }
+                return .run { await $0.send(._editModeToActive) }
             case .tapEditButton(false):
-                return .task {
-                    ._editModeToInactive
-                }
-                
+                return .run { await $0.send(._editModeToInactive) }
+
             case .tapSaveButton:
                 
                 let project = Project(
