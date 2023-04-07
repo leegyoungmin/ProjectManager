@@ -14,33 +14,7 @@ struct BoardListView: View {
         VStack(spacing: 30) {
             BoardListSectionHeader(viewStore: ViewStore(store))
                 .padding(.horizontal)
-            List {
-                WithViewStore(store) { viewStore in
-                    ForEach(viewStore.projects, id: \.id) { project in
-                        BoardListCellView(with: project)
-                            .onDrag {
-                                project.provider
-                            }
-                            .onTapGesture {
-                                viewStore.send(.presentProject(project))
-                            }
-                    }
-                    .onInsert(of: Project.Wrapper.readableTypes) { index, providers in
-                        providers.reversed().loadItems(Project.self) { project, error in
-                            if let project = project {
-                                DispatchQueue.main.async {
-                                    viewStore.send(.appendProject(project))
-                                }
-                            }
-                        }
-                    }
-                    .onDelete { index in
-                        viewStore.send(.deleteProject(index))
-                    }
-                    .listRowSeparator(.hidden)
-                }
-            }
-            .listStyle(.plain)
+            
         }
         .sheet(
             isPresented: ViewStore(store).binding(
@@ -57,19 +31,40 @@ struct BoardListView: View {
                 DetailProjectView(store: store)
             }
         }
-        .onDrop(of: Project.Wrapper.readableTypes, isTargeted: nil) { providers, location in
-            providers.reversed().loadItems(Project.self) { project, error in
-                if let project = project {
-                    DispatchQueue.main.async {
-                        ViewStore(store).send(.appendProject(project))
-                    }
-                }
-            }
-            
+        .onDrop(of: Project.Wrapper.readableTypes, isTargeted: nil) {
+            appendProviders(with: $0)
             return true
         }
         .onAppear {
             ViewStore(store).send(.onAppear)
+        }
+    }
+}
+
+private extension BoardListView {
+    var listSection: some View {
+        List {
+            WithViewStore(store) { viewStore in
+                ForEach(viewStore.projects, id: \.id) { project in
+                    BoardListCellView(with: project)
+                        .onDrag { project.provider }
+                        .onTapGesture { viewStore.send(.presentProject(project)) }
+                }
+                .onInsert(of: Project.Wrapper.readableTypes) { appendProviders(with: $1) }
+                .onDelete { viewStore.send(.deleteProject($0)) }
+                .listRowSeparator(.hidden)
+            }
+        }
+        .listStyle(.plain)
+    }
+    
+    func appendProviders(with providers: [NSItemProvider]) {
+        providers.reversed().loadItems(Project.self) { project, error in
+            if let project = project {
+                DispatchQueue.main.async {
+                    ViewStore(store).send(.appendProject(project))
+                }
+            }
         }
     }
 }
