@@ -9,8 +9,8 @@ import FirebaseAuth
 
 struct SignInCore: ReducerProtocol {
     struct State: Equatable {
-        @BindingState var email: String = ""
-        @BindingState var password: String = ""
+        @BindingState var email: String = "cow970814@naver.com"
+        @BindingState var password: String = "km**970814"
         var isPresentSignUpPage: Bool = false
         var signUpState: SignUpCore.State?
     }

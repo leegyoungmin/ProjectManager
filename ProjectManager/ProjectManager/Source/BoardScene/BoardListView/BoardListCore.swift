@@ -12,6 +12,9 @@ struct BoardListCore: ReducerProtocol {
     struct State: Equatable {
         let projectState: ProjectState
         var projects: [Project]
+        var selectedProject: DetailProjectCore.State?
+        
+        var isPresentDetail: Bool { selectedProject != nil }
         
         init(projectState: ProjectState, projects: [Project] = []) {
             self.projectState = projectState
@@ -26,14 +29,18 @@ struct BoardListCore: ReducerProtocol {
         case onAppear
         case appendProject(Project)
         case deleteProject(IndexSet)
+        case presentProject(Project)
         
         // Inner Action
         case _saveProject(Project)
+        case _dismissDetail
         
         case _projectLoadResponse(TaskResult<[Project]>)
-        
         case _saveProjectResponse(TaskResult<Bool>)
         case _deleteProjectResponse(TaskResult<Bool>)
+        
+        // Child Action
+        case detailCoreAction(DetailProjectCore.Action)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -78,6 +85,9 @@ struct BoardListCore: ReducerProtocol {
                         }
                     )
                 }
+            case let .presentProject(project):
+                state.selectedProject = DetailProjectCore.State(project: project)
+                return .none
                 
             case let ._saveProject(project):
                 return .task {
@@ -87,6 +97,10 @@ struct BoardListCore: ReducerProtocol {
                         }
                     )
                 }
+                
+            case ._dismissDetail:
+                state.selectedProject = nil
+                return .none
                 
             case let ._projectLoadResponse(.success(projects)):
                 state.projects = projects

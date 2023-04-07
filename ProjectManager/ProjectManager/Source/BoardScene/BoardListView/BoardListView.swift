@@ -21,6 +21,9 @@ struct BoardListView: View {
                             .onDrag {
                                 project.provider
                             }
+                            .onTapGesture {
+                                viewStore.send(.presentProject(project))
+                            }
                     }
                     .onInsert(of: Project.Wrapper.readableTypes) { index, providers in
                         providers.reversed().loadItems(Project.self) { project, error in
@@ -38,6 +41,21 @@ struct BoardListView: View {
                 }
             }
             .listStyle(.plain)
+        }
+        .sheet(
+            isPresented: ViewStore(store).binding(
+                get: \.isPresentDetail,
+                send: ._dismissDetail
+            )
+        ) {
+            IfLetStore(
+                store.scope(
+                    state: \.selectedProject,
+                    action: BoardListCore.Action.detailCoreAction
+                )
+            ) { store in
+                DetailProjectView(store: store)
+            }
         }
         .onDrop(of: Project.Wrapper.readableTypes, isTargeted: nil) { providers, location in
             providers.reversed().loadItems(Project.self) { project, error in
