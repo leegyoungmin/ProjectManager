@@ -95,6 +95,9 @@ struct BoardListCore: ReducerProtocol {
             case ._projectLoadResponse:
                 return .none
                 
+            case ._deleteProjectResponse(.success):
+                return .run { await $0.send(.onAppear) }
+                
             default:
                 return .none
             }
