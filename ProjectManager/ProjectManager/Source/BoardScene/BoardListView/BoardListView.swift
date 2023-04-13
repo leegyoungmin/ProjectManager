@@ -15,6 +15,7 @@ struct BoardListView: View {
             BoardListSectionHeader(viewStore: ViewStore(store))
                 .padding(.horizontal)
             
+            listSection
         }
         .sheet(
             isPresented: ViewStore(store).binding(
