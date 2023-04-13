@@ -26,7 +26,6 @@ struct NavigationBarCore: ReducerProtocol {
         case detailAction(DetailProjectCore.Action)
     }
     
-    @Dependency(\.coreDataClient) var coreDataClient
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in

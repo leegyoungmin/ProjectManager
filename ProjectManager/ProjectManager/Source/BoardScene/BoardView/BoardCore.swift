@@ -1,8 +1,8 @@
-////
-////  BoardCore.swift
-////  ProjectManager
-////
-////  Copyright (c) 2023 Minii All rights reserved.
+//
+//  BoardCore.swift
+//  ProjectManager
+//
+//  Copyright (c) 2023 Minii All rights reserved.
 
 import ComposableArchitecture
 
@@ -21,10 +21,10 @@ struct BoardCore: ReducerProtocol {
         case doneAction(BoardListCore.Action)
         
         // Inner Action
-        case _fetchResponse(ProjectState, TaskResult<[Assignment]>)
+        case _fetchResponse(ProjectState, TaskResult<[Project]>)
     }
     
-    @Dependency(\.coreDataClient) var coreDataClient
+    @Dependency(\.projectsClient) var projectsClient
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
@@ -41,34 +41,28 @@ struct BoardCore: ReducerProtocol {
                         await $0.send(.doneAction(.onAppear))
                     }
                 )
-            case .todoAction(._deleteAssignResponse):
-                return deleteAssignResponse(types: (.doing, .done)).animation()
-                
+            case .todoAction(.appendProject), .doingAction(.appendProject), .doneAction(.appendProject):
+                return .run { await $0.send(.reloadData) }
+
             case .todoAction:
                 return .none
-                
-            case .doingAction(._deleteAssignResponse):
-                return deleteAssignResponse(types: (.todo, .done)).animation()
                 
             case .doingAction:
                 return .none
                 
-            case .doneAction(._deleteAssignResponse):
-                return deleteAssignResponse(types: (.todo, .doing)).animation()
-                
             case .doneAction:
                 return .none
                 
-            case ._fetchResponse(.todo, .success(let assignments)):
-                state.todoListState.projects = assignments.map { $0.convertProject() }
+            case ._fetchResponse(.todo, .success(let projects)):
+                state.todoListState.projects = projects
                 return .none
                 
-            case ._fetchResponse(.doing, .success(let assignments)):
-                state.doingListState.projects = assignments.map { $0.convertProject() }
+            case ._fetchResponse(.doing, .success(let projects)):
+                state.doingListState.projects = projects
                 return .none
                 
-            case ._fetchResponse(.done, .success(let assignments)):
-                state.doneListState.projects = assignments.map { $0.convertProject() }
+            case ._fetchResponse(.done, .success(let projects)):
+                state.doneListState.projects = projects
                 return .none
                 
             case ._fetchResponse(_, .failure):
@@ -95,7 +89,7 @@ struct BoardCore: ReducerProtocol {
                 await ._fetchResponse(
                     types.0,
                     TaskResult {
-                        try await coreDataClient.loadAssignments(types.0)
+                        try await projectsClient.loadProjects(types.0)
                     }
                 )
             },
@@ -103,7 +97,7 @@ struct BoardCore: ReducerProtocol {
                 await ._fetchResponse(
                     types.1,
                     TaskResult {
-                        try await coreDataClient.loadAssignments(types.1)
+                        try await projectsClient.loadProjects(types.1)
                     }
                 )
             }

@@ -12,38 +12,37 @@ struct AppCore: ReducerProtocol {
     struct State: Equatable {
         var user: User?
         var authState = AuthCore.State()
-        var navigationBarState = NavigationBarCore.State()
-        var boardState = BoardCore.State()
+        var boardSceneState: BoardSceneCore.State?
     }
     
     enum Action: Equatable {
         case authAction(AuthCore.Action)
-        case navigationBarAction(NavigationBarCore.Action)
-        case boardAction(BoardCore.Action)
+        case boardSceneAction(BoardSceneCore.Action)
     }
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
-            case let .authAction(._signInWithEmailAndPassword(.success(user))):
+            case .authAction(.signInAction(._signInWithEmailAndPassword(.success(let user)))):
                 state.user = user
+                state.boardSceneState?.user = user
+                state.boardSceneState = BoardSceneCore.State()
                 return .none
                 
             default:
                 return .none
             }
         }
+        .ifLet(\.boardSceneState, action: /Action.boardSceneAction) {
+            BoardSceneCore()
+        }
+        
+//        Scope(state: \.boardSceneState, action: /Action.boardSceneAction) {
+//            BoardSceneCore()
+//        }
         
         Scope(state: \.authState, action: /Action.authAction) {
             AuthCore()
-        }
-        
-        Scope(state: \.navigationBarState, action: /Action.navigationBarAction) {
-            NavigationBarCore()
-        }
-        
-        Scope(state: \.boardState, action: /Action.boardAction) {
-            BoardCore()
         }
     }
 }

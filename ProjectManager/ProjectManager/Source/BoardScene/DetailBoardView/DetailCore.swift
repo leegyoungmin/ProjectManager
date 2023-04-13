@@ -14,7 +14,7 @@ struct DetailProjectCore: ReducerProtocol {
         @BindingState var title: String = ""
         @BindingState var body: String = ""
         @BindingState var deadLineDate: Date = Date()
-        var projectState: ProjectState = .todo
+        @BindingState var projectState: ProjectState = .todo
         var editMode: EditMode = .active
         
         init(project: Project? = nil) {
@@ -43,21 +43,17 @@ struct DetailProjectCore: ReducerProtocol {
         case binding(BindingAction<State>)
     }
     
-    @Dependency(\.coreDataClient) var coreDataClient
+    @Dependency(\.projectsClient) var projectsClient
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
             case .tapEditButton(true):
-                return .task {
-                    ._editModeToActive
-                }
+                return .run { await $0.send(._editModeToActive) }
             case .tapEditButton(false):
-                return .task {
-                    ._editModeToInactive
-                }
-                
+                return .run { await $0.send(._editModeToInactive) }
+
             case .tapSaveButton:
                 
                 let project = Project(
@@ -67,21 +63,22 @@ struct DetailProjectCore: ReducerProtocol {
                     description: state.body,
                     state: state.projectState
                 )
-                
                 return .task {
                     await ._saveProjectResponse(
                         TaskResult {
-                            try await coreDataClient.addAssignment(project)
+                            try await projectsClient.saveProject(project)
                         }
                     )
                 }
-                
             case ._editModeToActive:
                 state.editMode = .active
                 return .none
                 
             case ._editModeToInactive:
                 state.editMode = .inactive
+                return .none
+                
+            case ._saveProjectResponse(.success):
                 return .none
                 
             case ._saveProjectResponse:

@@ -7,35 +7,53 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct LoginView: View {
-    let store: StoreOf<AuthCore>
+struct SignInView: View {
+    let store: StoreOf<SignInCore>
     
     var body: some View {
-        HStack {
-            Spacer()
-            
-            VStack(alignment: .center) {
+        WithViewStore(store) { viewStore in
+            HStack {
+                Spacer()
                 
-                titleSection
-                
-                emailSection
-                
-                passwordSection
-                
-                loginButton
-                
-                signUpSection
+                VStack(alignment: .center) {
+                    
+                    titleSection
+                    
+                    emailSection
+                    
+                    passwordSection
+                    
+                    loginButton
+                    
+                    signUpSection
+                    
+                    Spacer()
+                }
                 
                 Spacer()
             }
-            
-            Spacer()
+            .background(LinearGradient(colors: [Color("DarkAccent"), Color.accentColor], startPoint: .top, endPoint: .bottom))
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isPresentSignUpPage,
+                    send: SignInCore.Action._presentSignUpPage(false)
+                )
+            ) {
+                IfLetStore(
+                    store.scope(
+                        state: \.signUpState,
+                        action: SignInCore.Action.signUpAction
+                    )
+                ) { store in
+                    SignUpView(store: store)
+                        .interactiveDismissDisabled()
+                }
+            }
         }
-        .background(LinearGradient(colors: [Color("DarkAccent"), Color.accentColor], startPoint: .top, endPoint: .bottom))
     }
 }
 
-private extension LoginView {
+private extension SignInView {
     var titleSection: some View {
         Text("Sorting")
             .foregroundColor(.white)
@@ -88,7 +106,7 @@ private extension LoginView {
                 from: nil,
                 for: nil
             )
-            ViewStore(store).send(.tapLoginButton)
+            ViewStore(store).send(.login)
         } label: {
             Text("로그인하기")
         }
@@ -114,7 +132,7 @@ private extension LoginView {
                     .foregroundColor(.white)
                 
                 Button {
-                    print("Tapped Sign up")
+                    ViewStore(store).send(._presentSignUpPage(true))
                 } label: {
                     Text("회원 가입하기")
                         .bold()
@@ -138,11 +156,11 @@ struct AuthView_Previews: PreviewProvider {
         "iPad Pro (9.7-inch)",
         "iPad Pro (12.9-inch) (6th generation)"
     ]
-    static let store = Store(initialState: AuthCore.State(), reducer: AuthCore())
+    static let store = Store(initialState: SignInCore.State(), reducer: SignInCore())
     static var previews: some View {
         Group {
             ForEach(previewDevices, id: \.self) {
-                LoginView(store: store)
+                SignInView(store: store)
                     .previewInterfaceOrientation(.landscapeRight)
                     .previewDevice(PreviewDevice(rawValue: $0))
                     .previewLayout(.sizeThatFits)

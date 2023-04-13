@@ -1,13 +1,15 @@
 //
-//  PersistenceController.swift
+//  CoreDataManager.swift
 //  ProjectManager
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import CoreData
 
-class CoreDataManager {
+final class CoreDataManager: ProjectLoadService {
     static let shared = CoreDataManager()
+    
+    private init() { }
     
     private let container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Project")
@@ -22,19 +24,34 @@ class CoreDataManager {
     
     private lazy var context = container.viewContext
     
-    func loadAssignments(state: ProjectState) -> [Assignment] {
+    private func save() -> Bool {
+        if context.hasChanges {
+            guard let _ = try? context.save() else {
+                return false
+            }
+            
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+extension CoreDataManager {
+    func loadProjects(with state: ProjectState) async -> [Project] {
         let request = Assignment.fetchRequest()
         let predicate = NSPredicate(format: "state == %i", state.rawValue)
         request.predicate = predicate
         
-        guard let assignments = try? context.fetch(request) else { return [] }
+        guard let assignment = try? context.fetch(request) else {
+            return []
+        }
         
-        return assignments
+        return assignment.compactMap { $0.convertProject() }
     }
     
-    func saveProject(with project: Project) -> Bool {
+    func saveProject(with project: Project) async -> Bool {
         let object = Assignment(context: context)
-        
         object.id = project.id
         object.title = project.title
         object.body = project.description
@@ -44,7 +61,7 @@ class CoreDataManager {
         return save()
     }
     
-    func deleteProject(with project: Project) -> Bool {
+    func deleteProject(with project: Project) async -> Bool {
         let fetchRequest = Assignment.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", project.id.uuidString)
         fetchRequest.predicate = predicate
@@ -58,17 +75,5 @@ class CoreDataManager {
         }
         
         return save()
-    }
-    
-    private func save() -> Bool {
-        if context.hasChanges {
-            guard let _ = try? context.save() else {
-                return false
-            }
-            
-            return true
-        } else {
-            return false
-        }
     }
 }
