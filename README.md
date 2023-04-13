@@ -31,26 +31,26 @@
 ## 🛠 기능 소개
 ### 1. 인증 시스템
 #### 1 - 1 로그인
-<img src = "previews/ProjectSignIn.gif"/>
+<img src = "Previews/ProjectSignIn.gif"/>
 
 #### 1 - 2 회원가입
-<img src = "previews/ProjectSignUp.gif"/>
+<img src = "Previews/ProjectSignUp.gif"/>
 
 ### 2. 프로젝트 관리
 #### 2 - 1 데이터 생성
-<img src = "previews/CreateProject.gif"/>
+<img src = "Previews/CreateProject.gif"/>
 
 #### 2 - 2 데이터 상태 변경
-<img src = "previews/MoveProject.gif"/>
+<img src = "Previews/MoveProject.gif"/>
 
 #### 2 - 3 데이터 삭제
-<img src = "previews/DeleteProject.gif"/>
+<img src = "Previews/DeleteProject.gif"/>
 
 #### 2 - 4 데이터 업데이트
-<img src = "previews/UpdateProject.gif"/>
+<img src = "Previews/UpdateProject.gif"/>
 
 ## 👀 Diagram
-<img src = "previews/ProjectManagerDiagram.jpg"/>
+<img src = "Previews/ProjectManagerDiagram.jpg"/>
 
 ## 🗂 폴더 구조
 ```bash
@@ -139,12 +139,12 @@
 
 MVI 아키텍쳐란 단방향 데이터 아키텍쳐로서 사용자의 이벤트를 받은 뷰가 `Intent`라는 객체에게 전달하여 모델의 상태 값을 변화시키고 이에 대해서 뷰가 업데이트할 수 있도록 하는 것입니다. 하지만, 위와 같은 상황에서 발생하는 사이드 이펙트나 테스트에 용이하기 위해서 추가적인 구조를 형성하고 있는 아키텍쳐인 `TCA`를 채택하였습니다. 
 
-### Reducer의 구조
+### 2. Reducer의 구조
 `Reducer` 들의 구조는 상향식으로 의존을 하는 구조를 구성할 수 밖에 없다. 그렇기 때문에 좋은 구조를 구성하기 위해서는 최대한 작게 만들고, 이들의 조합을 통해서 새로운 `Reducer`를 구성하는 것이 좋다. 그래서 최대한 작은 `Reducer`를 구성하기 위해서 많은 고민을 하게 되었다. 현재는 Board 내의 Project의 상태에 따른 3가지의 코어를 구성하는 방법으로 구성하였다. 하지만, 데이터를 옮기는 과정에서 많은 어려움이 있을 것이라고 생각하였다. 그렇기 때문에 하나의 `Reducer` 로 구성할 수 있도록 고민하게 되었다.
 
 ## 🚀 트러블 슈팅
 
-### 시점에 따른 잘못된 화면
+### 1. 시점에 따른 잘못된 화면
 
 <figure>
   <img src = "Previews/bug1.png">
@@ -157,7 +157,7 @@ MVI 아키텍쳐란 단방향 데이터 아키텍쳐로서 사용자의 이벤�
 
 이를 해결하기 위해서 `sheet(isPresent:)` 메서드를 활용하여서 개별적으로 사용할 수 있는 내부적인 액션을 구현하였다. `State` 내에서 보여주어야 한다는 상태값이 `true`와 `false`로 가지게 되었고, 뷰의 내부에서 `ifLet` 메서드를 통해서 상태값이 있는 경우에 뷰를 보여 줄 수 있게 구현하였습니다.
 
-### TextField의 PlaceHolder 색상 변경하기
+### 2. TextField의 PlaceHolder 색상 변경하기
 `TextField` 내부 `Placeholder` 의 색상을 변경하는 `Modifier` 는 없습니다. 그래서 색상을 변경하기 위해서 많은 시행착오를 하게 되었습니다. 기존에는 `TextEditor` 를 활용하는 방법을 통해서 `Placeholder` 의 해당 State값의 상태를 통해서 `TextField` 대신에 사용하였습니다.
 
 하지만, 이것은 `TextField` 와 동일한 기능을 제공하지 않다 보니 문제들이 발생하게 됩니다. 그래서 `Modifier` 를 구성하는 방법을 찾아보게 되었습니다. `View` 의 `Extension` 을 통해서 `View` 프로토콜이 사용할 수 있는 메서드를 생성하고, 이는 조건을 통해서 해당 값의 Opacity를 조절하도록 하였습니다. 
