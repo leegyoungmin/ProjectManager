@@ -27,6 +27,10 @@
 | ----|----|
 |![Badge2](https://img.shields.io/badge/Core_Data-Local_DataBase-yellow?style=for-the-badge)| ![Badge3](https://img.shields.io/badge/Firebase-Remote_Database-orange?style=for-the-badge&logo=Firebase&logoColor=white) |
 
+## 기술적 도전
+- [X] TCA 아키텍쳐 적용
+- [X] FireStore 활용한 데이터 CRUD
+- [X] FireBase Auth를 활용한 이메일 / 비밀번호 인증 시스템
 
 ## 🛠 기능 소개
 ### 1. 인증 시스템
