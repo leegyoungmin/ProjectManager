@@ -82,25 +82,4 @@ struct BoardCore: ReducerProtocol {
             BoardListCore()
         }
     }
-    
-    func deleteAssignResponse(types: (ProjectState, ProjectState)) -> EffectTask<Action> {
-        return .concatenate(
-            .task {
-                await ._fetchResponse(
-                    types.0,
-                    TaskResult {
-                        try await projectsClient.loadProjects(types.0)
-                    }
-                )
-            },
-            .task {
-                await ._fetchResponse(
-                    types.1,
-                    TaskResult {
-                        try await projectsClient.loadProjects(types.1)
-                    }
-                )
-            }
-        )
-    }
 }
